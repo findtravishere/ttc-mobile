@@ -13,7 +13,7 @@ export default function Home({ navigation }: HomeProps): ReactElement {
 	return (
 		<ScrollView contentContainerStyle={styles.container}>
 			<Button onPress={() => navigation.navigate("Game")} title="Game" />
-			<Button onPress={() => alert(true)} title="Login" />
+			<Button onPress={() => navigation.navigate("Login")} title="Login" />
 		</ScrollView>
 	);
 }
