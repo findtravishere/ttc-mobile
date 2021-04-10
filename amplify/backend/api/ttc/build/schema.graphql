@@ -1,0 +1,162 @@
+type Player @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  cognitoID: String!
+  username: String!
+  name: String!
+  email: AWSEmail!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelPlayerConnection @aws_iam @aws_cognito_user_pools {
+  items: [Player]
+  nextToken: String
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+input ModelPlayerFilterInput {
+  id: ModelIDInput
+  cognitoID: ModelStringInput
+  username: ModelStringInput
+  name: ModelStringInput
+  email: ModelStringInput
+  and: [ModelPlayerFilterInput]
+  or: [ModelPlayerFilterInput]
+  not: ModelPlayerFilterInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+type Query {
+  getPlayer(username: String!): Player @aws_iam @aws_cognito_user_pools
+  listPlayers(username: String, filter: ModelPlayerFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelPlayerConnection @aws_iam @aws_cognito_user_pools
+}
+
+input CreatePlayerInput {
+  id: ID
+  cognitoID: String!
+  username: String!
+  name: String!
+  email: AWSEmail!
+}
+
+input UpdatePlayerInput {
+  id: ID!
+  cognitoID: String
+  username: String
+  name: String
+  email: AWSEmail
+}
+
+input DeletePlayerInput {
+  id: ID
+}
+
+type Mutation {
+  createPlayer(input: CreatePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam
+  updatePlayer(input: UpdatePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam @aws_cognito_user_pools
+  deletePlayer(input: DeletePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam
+}
+
+input ModelPlayerConditionInput {
+  cognitoID: ModelStringInput
+  name: ModelStringInput
+  email: ModelStringInput
+  and: [ModelPlayerConditionInput]
+  or: [ModelPlayerConditionInput]
+  not: ModelPlayerConditionInput
+}
+
+type Subscription {
+  onCreatePlayer: Player @aws_subscribe(mutations: ["createPlayer"]) @aws_iam @aws_cognito_user_pools
+  onUpdatePlayer: Player @aws_subscribe(mutations: ["updatePlayer"]) @aws_iam @aws_cognito_user_pools
+  onDeletePlayer: Player @aws_subscribe(mutations: ["deletePlayer"]) @aws_iam @aws_cognito_user_pools
+}

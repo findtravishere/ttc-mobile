@@ -1,0 +1,146 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-ttc-dev-181102-authRole",
+      "UnauthRoleArn": "arn:aws:iam::142728418300:role/amplify-ttc-dev-181102-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::142728418300:role/amplify-ttc-dev-181102-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-ttc-dev-181102-deployment",
+      "UnauthRoleName": "amplify-ttc-dev-181102-unauthRole",
+      "StackName": "amplify-ttc-dev-181102",
+      "StackId": "arn:aws:cloudformation:eu-west-2:142728418300:stack/amplify-ttc-dev-181102/10bca0d0-99e5-11eb-b3fe-0a301ca2aef6",
+      "AmplifyAppId": "dwkr4826eki76"
+    }
+  },
+  "auth": {
+    "ttc3e65df7f": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/auth/ttc3e65df7f-cloudformation-template.yml",
+        "logicalId": "authttc3e65df7f"
+      },
+      "lastPushTimeStamp": "2021-04-10T12:11:07.006Z",
+      "output": {
+        "UserPoolId": "eu-west-2_Z6y5PCSJj",
+        "AppClientIDWeb": "5ii4ga0h98594vd6i6aefc68rt",
+        "AppClientID": "5ig0qg2c8argkdjm173dphsrc2",
+        "IdentityPoolId": "eu-west-2:b2bae73c-e719-47ce-9fbb-8645478ad62f",
+        "IdentityPoolName": "ttc3e65df7f_identitypool_3e65df7f__dev",
+        "UserPoolName": "ttc3e65df7f_userpool_3e65df7f"
+      },
+      "lastPushDirHash": "nG2W1TKfA2kumA/s+Vck1cRe6oA="
+    }
+  },
+  "api": {
+    "ttc": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authttc3e65df7f"
+            }
+          },
+          "additionalAuthenticationProviders": [
+            {
+              "authenticationType": "API_KEY",
+              "apiKeyConfig": {
+                "apiKeyExpirationDays": 7,
+                "description": "test"
+              }
+            },
+            {
+              "authenticationType": "AWS_IAM"
+            }
+          ]
+        },
+        "GraphQLAPIIdOutput": "rjivonlmwvepvoiyhgtgijanra",
+        "GraphQLAPIEndpointOutput": "https://pcvm6mlto5euvlhm54voqmu6ta.appsync-api.eu-west-2.amazonaws.com/graphql",
+        "GraphQLAPIKeyOutput": "da2-le7ijs3zvfc4xpzxnjrbnrazvi"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apittc"
+      },
+      "lastPushTimeStamp": "2021-04-10T12:11:07.009Z",
+      "lastPushDirHash": "Or+LKlBPOEbkomgD1tlBOyAjVgc="
+    }
+  },
+  "function": {
+    "postconfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "ttc",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2021-04-10T12:08:35.001Z",
+      "lastPackageTimeStamp": "2021-04-10T12:08:43.167Z",
+      "distZipFilename": "postconfirmation-74615847396642783365-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
+        "s3Key": "amplify-builds/postconfirmation-74615847396642783365-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/function/postconfirmation-cloudformation-template.json",
+        "logicalId": "functionpostconfirmation"
+      },
+      "lastPushTimeStamp": "2021-04-10T12:11:07.015Z",
+      "output": {
+        "Region": "eu-west-2",
+        "Arn": "arn:aws:lambda:eu-west-2:142728418300:function:postconfirmation-dev",
+        "Name": "postconfirmation-dev",
+        "LambdaExecutionRole": "ttcLambdaRole4ffc934b-dev"
+      },
+      "lastPushDirHash": "hUVMB2Vnp/kJF5e2K+qcZPHgz1Y="
+    },
+    "preauth": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "ttc",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ]
+        }
+      ],
+      "lastBuildTimeStamp": "2021-04-10T12:08:35.000Z",
+      "lastPackageTimeStamp": "2021-04-10T12:08:42.080Z",
+      "distZipFilename": "preauth-6b58784c4549594e5368-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
+        "s3Key": "amplify-builds/preauth-6b58784c4549594e5368-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/function/preauth-cloudformation-template.json",
+        "logicalId": "functionpreauth"
+      },
+      "lastPushTimeStamp": "2021-04-10T12:11:07.015Z",
+      "output": {
+        "Region": "eu-west-2",
+        "Arn": "arn:aws:lambda:eu-west-2:142728418300:function:preauth-dev",
+        "Name": "preauth-dev",
+        "LambdaExecutionRole": "ttcLambdaRoleae12cf02-dev"
+      },
+      "lastPushDirHash": "7A8N1AY74tML7O6oMR2NaGwLnRs="
+    }
+  }
+}
