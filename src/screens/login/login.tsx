@@ -1,9 +1,16 @@
 import React, { ReactElement, useState } from "react";
-import { ScrollView, TextInput, Button, Alert } from "react-native";
+import { ScrollView, TextInput, Button, Alert, TouchableOpacity } from "react-native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackNavigatorParams } from "@config/navigator";
+import { Text } from "@components";
 import { Auth } from "aws-amplify";
 import styles from "./login.styles";
 
-export default function Login(): ReactElement {
+type LoginProps = {
+	navigation: StackNavigationProp<StackNavigatorParams, "Login">;
+};
+
+export default function Login({ navigation }: LoginProps): ReactElement {
 	const [login, setLogin] = useState({
 		username: "",
 		password: "",
@@ -12,30 +19,19 @@ export default function Login(): ReactElement {
 		setLogin({ ...login, [key]: value });
 	};
 
-	// const signup = async () => {
-	// 	try {
-	// 		const res = await Auth.signUp({
-	// 			username: "test",
-	// 			password: "12345678",
-	// 			attributes: {
-	// 				email: "test@test.com",
-	// 				name: "tester",
-	// 			},
-	// 		});
-	// 		console.log(res);
-	// 	} catch (err) {
-	// 		console.log(err);
-	// 	}
-	// };
-
 	const submit = async () => {
 		const { username, password } = login;
 		try {
 			const res = await Auth.signIn(username, password);
+			navigation.navigate("Home");
 			console.log(res);
 		} catch (err) {
-			console.log(err);
-			Alert.alert("error", err.message || "An error occured");
+			if (err.code === "UserNotConfirmedException") {
+				navigation.navigate("Register");
+			} else {
+				console.log(err);
+				Alert.alert("error", err.message || "An error occured");
+			}
 		}
 	};
 
@@ -75,6 +71,10 @@ export default function Login(): ReactElement {
 				}}
 			/>
 			<Button title="Login" onPress={submit}></Button>
+			<TouchableOpacity style={{ alignItems: "center", marginTop: 200 }}>
+				<Text style={{ fontSize: 30 }}>Don't have an account?</Text>
+				<Button onPress={() => navigation.navigate("Register")} title="Register"></Button>
+			</TouchableOpacity>
 		</ScrollView>
 	);
 }

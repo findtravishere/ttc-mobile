@@ -9,7 +9,20 @@ type ButtonProps = {
 export default function Button({ title, ...props }: ButtonProps): ReactElement {
 	return (
 		<TouchableOpacity {...props}>
-			<Text>{title}</Text>
+			<Text
+				style={{
+					fontSize: 25,
+					borderColor: "red",
+					borderWidth: 1,
+					marginBottom: 10,
+					paddingTop: 10,
+					paddingBottom: 10,
+					paddingLeft: 10,
+					paddingRight: 10,
+				}}
+			>
+				{title}
+			</Text>
 		</TouchableOpacity>
 	);
 }
