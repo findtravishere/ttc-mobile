@@ -18,7 +18,11 @@
       "function": {
         "postconfirmation": {
           "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
-          "s3Key": "amplify-builds/postconfirmation-64494232314959732b57-build.zip"
+          "s3Key": "amplify-builds/postconfirmation-74615847396642783365-build.zip"
+        },
+        "preauth": {
+          "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
+          "s3Key": "amplify-builds/preauth-6b58784c4549594e5368-build.zip"
         }
       }
     }
