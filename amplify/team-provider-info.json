@@ -18,7 +18,7 @@
       "function": {
         "postconfirmation": {
           "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
-          "s3Key": "amplify-builds/postconfirmation-6d44696563383851796c-build.zip"
+          "s3Key": "amplify-builds/postconfirmation-64494232314959732b57-build.zip"
         }
       }
     }
