@@ -9,6 +9,7 @@ import { getGame, startgame, playmove } from "../game/game.graphql";
 import { API, graphqlOperation } from "aws-amplify";
 import { GraphQLResult } from "@aws-amplify/api";
 import { getGameQuery, startgameMutation, playmoveMutation } from "../../API";
+import { useLogged } from "../../contexts/logged-context";
 
 type GameScreenNavigationProp = StackNavigationProp<StackNavigatorParams, "Game">;
 type GameScreenRouteProp = RouteProp<StackNavigatorParams, "Game">;
@@ -22,6 +23,8 @@ export default function Game({ navigation, route }: GameProps): ReactElement {
 	const { gameID: existingGameID, invitee } = route.params;
 	const [game, setGame] = useState<any>(null);
 	const [gameID, setGameID] = useState<any>(null);
+	const [playingTurn, setPlayingTurn] = useState<1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | false>(false);
+	const { user } = useLogged();
 
 	const initGame = async () => {
 		let gameID = existingGameID;
@@ -48,7 +51,8 @@ export default function Game({ navigation, route }: GameProps): ReactElement {
 		}
 	};
 
-	const playTurn = async (index: number) => {
+	const playTurn = async (index: any) => {
+		setPlayingTurn(index);
 		try {
 			const playMoveRes = (await API.graphql(
 				graphqlOperation(playmove, { index, game: gameID })
@@ -60,10 +64,11 @@ export default function Game({ navigation, route }: GameProps): ReactElement {
 		} catch (err) {
 			if (err.errors && err.errors.length > 0) {
 				Alert.alert("Error!", err.errors[0].message);
-				return;
+			} else {
+				Alert.alert("error", "error from game");
 			}
-			Alert.alert("error", "error from game");
 		}
+		setPlayingTurn(false);
 	};
 
 	useEffect(() => {
@@ -72,7 +77,15 @@ export default function Game({ navigation, route }: GameProps): ReactElement {
 
 	return (
 		<SafeAreaView style={styles.container}>
-			{game && <Board onCellPress={(index) => playTurn(index)} state={game.state} size={400} />}
+			{game && user && (
+				<Board
+					loading={playingTurn}
+					disabled={game.turn !== user.username || playingTurn !== false}
+					onCellPress={(index) => playTurn(index)}
+					state={game.state}
+					size={400}
+				/>
+			)}
 		</SafeAreaView>
 	);
 }
