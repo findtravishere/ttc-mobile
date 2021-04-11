@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { View, TouchableOpacity } from "react-native";
-import { Text } from "@components";
+import { Text } from "../../components";
 
 type Cell = "x" | "o" | null;
 type BoardProps = {

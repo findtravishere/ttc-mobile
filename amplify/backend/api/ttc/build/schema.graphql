@@ -1,3 +1,24 @@
+type Mutation {
+  startgame(invitee: String!): GameData @aws_cognito_user_pools
+  createPlayer(input: CreatePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam
+  updatePlayer(input: UpdatePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam @aws_cognito_user_pools
+  deletePlayer(input: DeletePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam
+  createPlayerGame(input: CreatePlayerGameInput!, condition: ModelPlayerGameConditionInput): PlayerGame @aws_iam
+  updatePlayerGame(input: UpdatePlayerGameInput!, condition: ModelPlayerGameConditionInput): PlayerGame @aws_iam
+  deletePlayerGame(input: DeletePlayerGameInput!, condition: ModelPlayerGameConditionInput): PlayerGame @aws_iam
+  createGame(input: CreateGameInput!, condition: ModelGameConditionInput): Game @aws_iam
+  updateGame(input: UpdateGameInput!, condition: ModelGameConditionInput): Game @aws_iam
+  deleteGame(input: DeleteGameInput!, condition: ModelGameConditionInput): Game @aws_iam
+}
+
+type GameData {
+  id: ID!
+  status: GameStatus!
+  turn: String!
+  state: [Symbol]!
+  winner: String
+}
+
 type Player @aws_iam @aws_cognito_user_pools {
   id: ID!
   cognitoID: String!
@@ -6,6 +27,44 @@ type Player @aws_iam @aws_cognito_user_pools {
   email: AWSEmail!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
+  games(createdAt: ModelStringKeyConditionInput, filter: ModelPlayerGameFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelPlayerGameConnection @aws_iam @aws_cognito_user_pools
+}
+
+type PlayerGame @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  createdAt: String!
+  gameID: ID!
+  playerUsername: String!
+  owners: [String!]!
+  updatedAt: AWSDateTime!
+  player: Player! @aws_iam @aws_cognito_user_pools
+  game: Game! @aws_iam @aws_cognito_user_pools
+}
+
+type Game @aws_iam @aws_cognito_user_pools {
+  id: ID!
+  status: GameStatus!
+  owners: [String!]!
+  initiator: String!
+  turn: String!
+  state: [Symbol]!
+  winner: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  players(filter: ModelPlayerGameFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelPlayerGameConnection @aws_iam @aws_cognito_user_pools
+}
+
+enum GameStatus {
+  REQUESTED
+  DECLINED
+  ACTIVE
+  FINISHED
+  CANCELLED
+}
+
+enum Symbol {
+  x
+  o
 }
 
 enum ModelSortDirection {
@@ -116,8 +175,10 @@ enum ModelAttributeTypes {
 }
 
 type Query {
-  getPlayer(username: String!): Player @aws_iam @aws_cognito_user_pools
   listPlayers(username: String, filter: ModelPlayerFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelPlayerConnection @aws_iam @aws_cognito_user_pools
+  getPlayer(username: String!): Player @aws_iam @aws_cognito_user_pools
+  listGames(filter: ModelGameFilterInput, limit: Int, nextToken: String): ModelGameConnection @aws_iam @aws_cognito_user_pools
+  getGame(id: ID!): Game @aws_iam @aws_cognito_user_pools
 }
 
 input CreatePlayerInput {
@@ -140,12 +201,6 @@ input DeletePlayerInput {
   id: ID
 }
 
-type Mutation {
-  createPlayer(input: CreatePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam
-  updatePlayer(input: UpdatePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam @aws_cognito_user_pools
-  deletePlayer(input: DeletePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam
-}
-
 input ModelPlayerConditionInput {
   cognitoID: ModelStringInput
   name: ModelStringInput
@@ -159,4 +214,131 @@ type Subscription {
   onCreatePlayer: Player @aws_subscribe(mutations: ["createPlayer"]) @aws_iam @aws_cognito_user_pools
   onUpdatePlayer: Player @aws_subscribe(mutations: ["updatePlayer"]) @aws_iam @aws_cognito_user_pools
   onDeletePlayer: Player @aws_subscribe(mutations: ["deletePlayer"]) @aws_iam @aws_cognito_user_pools
+  onCreatePlayerGame: PlayerGame @aws_subscribe(mutations: ["createPlayerGame"]) @aws_iam @aws_cognito_user_pools
+  onUpdatePlayerGame: PlayerGame @aws_subscribe(mutations: ["updatePlayerGame"]) @aws_iam @aws_cognito_user_pools
+  onDeletePlayerGame: PlayerGame @aws_subscribe(mutations: ["deletePlayerGame"]) @aws_iam @aws_cognito_user_pools
+  onCreateGame(owners: String): Game @aws_subscribe(mutations: ["createGame"]) @aws_iam @aws_cognito_user_pools
+  onUpdateGame(owners: String): Game @aws_subscribe(mutations: ["updateGame"]) @aws_iam @aws_cognito_user_pools
+  onDeleteGame(owners: String): Game @aws_subscribe(mutations: ["deleteGame"]) @aws_iam @aws_cognito_user_pools
+}
+
+input CreatePlayerGameInput {
+  id: ID
+  createdAt: String
+  gameID: ID!
+  playerUsername: String!
+  owners: [String!]!
+}
+
+input UpdatePlayerGameInput {
+  id: ID!
+  createdAt: String
+  gameID: ID
+  playerUsername: String
+  owners: [String!]
+}
+
+input DeletePlayerGameInput {
+  id: ID
+}
+
+input ModelPlayerGameConditionInput {
+  createdAt: ModelStringInput
+  gameID: ModelIDInput
+  playerUsername: ModelStringInput
+  owners: ModelStringInput
+  and: [ModelPlayerGameConditionInput]
+  or: [ModelPlayerGameConditionInput]
+  not: ModelPlayerGameConditionInput
+}
+
+type ModelGameConnection @aws_iam @aws_cognito_user_pools {
+  items: [Game]
+  nextToken: String
+}
+
+input ModelGameStatusInput {
+  eq: GameStatus
+  ne: GameStatus
+}
+
+input ModelSymbolListInput {
+  eq: [Symbol]
+  ne: [Symbol]
+  contains: Symbol
+  notContains: Symbol
+}
+
+input ModelGameFilterInput {
+  id: ModelIDInput
+  status: ModelGameStatusInput
+  owners: ModelStringInput
+  initiator: ModelStringInput
+  turn: ModelStringInput
+  state: ModelSymbolListInput
+  winner: ModelStringInput
+  and: [ModelGameFilterInput]
+  or: [ModelGameFilterInput]
+  not: ModelGameFilterInput
+}
+
+input CreateGameInput {
+  id: ID
+  status: GameStatus!
+  owners: [String!]!
+  initiator: String!
+  turn: String!
+  state: [Symbol]!
+  winner: String
+}
+
+input UpdateGameInput {
+  id: ID!
+  status: GameStatus
+  owners: [String!]
+  initiator: String
+  turn: String
+  state: [Symbol]
+  winner: String
+}
+
+input DeleteGameInput {
+  id: ID
+}
+
+input ModelGameConditionInput {
+  status: ModelGameStatusInput
+  initiator: ModelStringInput
+  turn: ModelStringInput
+  state: ModelSymbolListInput
+  winner: ModelStringInput
+  and: [ModelGameConditionInput]
+  or: [ModelGameConditionInput]
+  not: ModelGameConditionInput
+}
+
+input ModelStringKeyConditionInput {
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  between: [String]
+  beginsWith: String
+}
+
+type ModelPlayerGameConnection @aws_iam @aws_cognito_user_pools {
+  items: [PlayerGame]
+  nextToken: String
+}
+
+input ModelPlayerGameFilterInput {
+  id: ModelIDInput
+  createdAt: ModelStringInput
+  gameID: ModelIDInput
+  playerUsername: ModelStringInput
+  owners: ModelStringInput
+  and: [ModelPlayerGameFilterInput]
+  or: [ModelPlayerGameFilterInput]
+  not: ModelPlayerGameFilterInput
 }

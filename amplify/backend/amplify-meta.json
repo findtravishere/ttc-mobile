@@ -141,6 +141,22 @@
         "LambdaExecutionRole": "ttcLambdaRoleae12cf02-dev"
       },
       "lastPushDirHash": "7A8N1AY74tML7O6oMR2NaGwLnRs="
+    },
+    "startgame": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "api",
+          "resourceName": "ttc",
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ]
+        }
+      ]
     }
   }
 }

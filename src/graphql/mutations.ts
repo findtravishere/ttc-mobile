@@ -2,45 +2,305 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
-  ) {
-    createTodo(input: $input, condition: $condition) {
+export const startgame = /* GraphQL */ `
+  mutation Startgame($invitee: String!) {
+    startgame(invitee: $invitee) {
       id
-      name
-      description
-      createdAt
-      updatedAt
+      status
+      turn
+      state
+      winner
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createPlayer = /* GraphQL */ `
+  mutation CreatePlayer(
+    $input: CreatePlayerInput!
+    $condition: ModelPlayerConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    createPlayer(input: $input, condition: $condition) {
       id
+      cognitoID
+      username
       name
-      description
+      email
       createdAt
       updatedAt
+      games {
+        items {
+          id
+          createdAt
+          gameID
+          playerUsername
+          owners
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const updatePlayer = /* GraphQL */ `
+  mutation UpdatePlayer(
+    $input: UpdatePlayerInput!
+    $condition: ModelPlayerConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    updatePlayer(input: $input, condition: $condition) {
       id
+      cognitoID
+      username
       name
-      description
+      email
       createdAt
       updatedAt
+      games {
+        items {
+          id
+          createdAt
+          gameID
+          playerUsername
+          owners
+          updatedAt
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const deletePlayer = /* GraphQL */ `
+  mutation DeletePlayer(
+    $input: DeletePlayerInput!
+    $condition: ModelPlayerConditionInput
+  ) {
+    deletePlayer(input: $input, condition: $condition) {
+      id
+      cognitoID
+      username
+      name
+      email
+      createdAt
+      updatedAt
+      games {
+        items {
+          id
+          createdAt
+          gameID
+          playerUsername
+          owners
+          updatedAt
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const createPlayerGame = /* GraphQL */ `
+  mutation CreatePlayerGame(
+    $input: CreatePlayerGameInput!
+    $condition: ModelPlayerGameConditionInput
+  ) {
+    createPlayerGame(input: $input, condition: $condition) {
+      id
+      createdAt
+      gameID
+      playerUsername
+      owners
+      updatedAt
+      player {
+        id
+        cognitoID
+        username
+        name
+        email
+        createdAt
+        updatedAt
+        games {
+          nextToken
+        }
+      }
+      game {
+        id
+        status
+        owners
+        initiator
+        turn
+        state
+        winner
+        createdAt
+        updatedAt
+        players {
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const updatePlayerGame = /* GraphQL */ `
+  mutation UpdatePlayerGame(
+    $input: UpdatePlayerGameInput!
+    $condition: ModelPlayerGameConditionInput
+  ) {
+    updatePlayerGame(input: $input, condition: $condition) {
+      id
+      createdAt
+      gameID
+      playerUsername
+      owners
+      updatedAt
+      player {
+        id
+        cognitoID
+        username
+        name
+        email
+        createdAt
+        updatedAt
+        games {
+          nextToken
+        }
+      }
+      game {
+        id
+        status
+        owners
+        initiator
+        turn
+        state
+        winner
+        createdAt
+        updatedAt
+        players {
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const deletePlayerGame = /* GraphQL */ `
+  mutation DeletePlayerGame(
+    $input: DeletePlayerGameInput!
+    $condition: ModelPlayerGameConditionInput
+  ) {
+    deletePlayerGame(input: $input, condition: $condition) {
+      id
+      createdAt
+      gameID
+      playerUsername
+      owners
+      updatedAt
+      player {
+        id
+        cognitoID
+        username
+        name
+        email
+        createdAt
+        updatedAt
+        games {
+          nextToken
+        }
+      }
+      game {
+        id
+        status
+        owners
+        initiator
+        turn
+        state
+        winner
+        createdAt
+        updatedAt
+        players {
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const createGame = /* GraphQL */ `
+  mutation CreateGame(
+    $input: CreateGameInput!
+    $condition: ModelGameConditionInput
+  ) {
+    createGame(input: $input, condition: $condition) {
+      id
+      status
+      owners
+      initiator
+      turn
+      state
+      winner
+      createdAt
+      updatedAt
+      players {
+        items {
+          id
+          createdAt
+          gameID
+          playerUsername
+          owners
+          updatedAt
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const updateGame = /* GraphQL */ `
+  mutation UpdateGame(
+    $input: UpdateGameInput!
+    $condition: ModelGameConditionInput
+  ) {
+    updateGame(input: $input, condition: $condition) {
+      id
+      status
+      owners
+      initiator
+      turn
+      state
+      winner
+      createdAt
+      updatedAt
+      players {
+        items {
+          id
+          createdAt
+          gameID
+          playerUsername
+          owners
+          updatedAt
+        }
+        nextToken
+      }
+    }
+  }
+`;
+export const deleteGame = /* GraphQL */ `
+  mutation DeleteGame(
+    $input: DeleteGameInput!
+    $condition: ModelGameConditionInput
+  ) {
+    deleteGame(input: $input, condition: $condition) {
+      id
+      status
+      owners
+      initiator
+      turn
+      state
+      winner
+      createdAt
+      updatedAt
+      players {
+        items {
+          id
+          createdAt
+          gameID
+          playerUsername
+          owners
+          updatedAt
+        }
+        nextToken
+      }
     }
   }
 `;

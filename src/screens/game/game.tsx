@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { Text, SafeAreaView } from "react-native";
 import styles from "./game.style";
-import { Board } from "@components";
+import { Board } from "../../components/";
 
 export default function Game(): ReactElement {
 	return (

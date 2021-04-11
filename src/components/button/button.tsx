@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { TouchableOpacity, TouchableOpacityProps } from "react-native";
-import { Text } from "@components";
+import { Text } from "../../components";
 
 type ButtonProps = {
 	title: string;
