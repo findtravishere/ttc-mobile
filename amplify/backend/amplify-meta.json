@@ -22,7 +22,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/auth/ttc3e65df7f-cloudformation-template.yml",
         "logicalId": "authttc3e65df7f"
       },
-      "lastPushTimeStamp": "2021-04-10T12:11:07.006Z",
+      "lastPushTimeStamp": "2021-04-11T09:16:20.125Z",
       "output": {
         "UserPoolId": "eu-west-2_Z6y5PCSJj",
         "AppClientIDWeb": "5ii4ga0h98594vd6i6aefc68rt",
@@ -67,8 +67,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apittc"
       },
-      "lastPushTimeStamp": "2021-04-10T12:11:07.009Z",
-      "lastPushDirHash": "Or+LKlBPOEbkomgD1tlBOyAjVgc="
+      "lastPushTimeStamp": "2021-04-11T09:16:22.547Z",
+      "lastPushDirHash": "YhRX5sB0sAY6uMfT5xaFFiiqtOw="
     }
   },
   "function": {
@@ -98,7 +98,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/function/postconfirmation-cloudformation-template.json",
         "logicalId": "functionpostconfirmation"
       },
-      "lastPushTimeStamp": "2021-04-10T12:11:07.015Z",
+      "lastPushTimeStamp": "2021-04-11T09:16:20.129Z",
       "output": {
         "Region": "eu-west-2",
         "Arn": "arn:aws:lambda:eu-west-2:142728418300:function:postconfirmation-dev",
@@ -122,25 +122,25 @@
           ]
         }
       ],
-      "lastBuildTimeStamp": "2021-04-10T12:08:35.000Z",
-      "lastPackageTimeStamp": "2021-04-10T12:08:42.080Z",
-      "distZipFilename": "preauth-6b58784c4549594e5368-build.zip",
+      "lastBuildTimeStamp": "2021-04-11T09:10:37.591Z",
+      "lastPackageTimeStamp": "2021-04-11T09:10:47.520Z",
+      "distZipFilename": "preauth-496959657343745a7064-build.zip",
       "s3Bucket": {
         "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
-        "s3Key": "amplify-builds/preauth-6b58784c4549594e5368-build.zip"
+        "s3Key": "amplify-builds/preauth-496959657343745a7064-build.zip"
       },
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/function/preauth-cloudformation-template.json",
         "logicalId": "functionpreauth"
       },
-      "lastPushTimeStamp": "2021-04-10T12:11:07.015Z",
+      "lastPushTimeStamp": "2021-04-11T09:16:22.547Z",
       "output": {
         "Region": "eu-west-2",
         "Arn": "arn:aws:lambda:eu-west-2:142728418300:function:preauth-dev",
         "Name": "preauth-dev",
         "LambdaExecutionRole": "ttcLambdaRoleae12cf02-dev"
       },
-      "lastPushDirHash": "7A8N1AY74tML7O6oMR2NaGwLnRs="
+      "lastPushDirHash": "o97crVNDiLPpdMpu2wN/O+ZuzsY="
     },
     "startgame": {
       "build": true,
@@ -156,7 +156,26 @@
             "GraphQLAPIKeyOutput"
           ]
         }
-      ]
+      ],
+      "lastBuildTimeStamp": "2021-04-11T09:10:37.587Z",
+      "lastPackageTimeStamp": "2021-04-11T09:10:47.575Z",
+      "distZipFilename": "startgame-4250774631306259464d-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
+        "s3Key": "amplify-builds/startgame-4250774631306259464d-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/function/startgame-cloudformation-template.json",
+        "logicalId": "functionstartgame"
+      },
+      "lastPushTimeStamp": "2021-04-11T09:16:22.547Z",
+      "output": {
+        "Region": "eu-west-2",
+        "Arn": "arn:aws:lambda:eu-west-2:142728418300:function:startgame-dev",
+        "Name": "startgame-dev",
+        "LambdaExecutionRole": "ttcLambdaRolebb009e5d-dev"
+      },
+      "lastPushDirHash": "K+GZhgZk9BO1fBsOA98APlrCxh4="
     },
     "playmove": {
       "build": true,
@@ -172,7 +191,26 @@
             "GraphQLAPIKeyOutput"
           ]
         }
-      ]
+      ],
+      "lastBuildTimeStamp": "2021-04-11T09:10:37.590Z",
+      "lastPackageTimeStamp": "2021-04-11T09:10:45.952Z",
+      "distZipFilename": "playmove-664c766d6c776741706c-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
+        "s3Key": "amplify-builds/playmove-664c766d6c776741706c-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/function/playmove-cloudformation-template.json",
+        "logicalId": "functionplaymove"
+      },
+      "lastPushTimeStamp": "2021-04-11T09:16:22.547Z",
+      "output": {
+        "Region": "eu-west-2",
+        "Arn": "arn:aws:lambda:eu-west-2:142728418300:function:playmove-dev",
+        "Name": "playmove-dev",
+        "LambdaExecutionRole": "ttcLambdaRolec6074b20-dev"
+      },
+      "lastPushDirHash": "i8JEqmvIG7ehkZmSjrycRTpQSXw="
     }
   }
 }

@@ -142,7 +142,7 @@
             "Ref": "AuthRoleName"
           },
           "S3DeploymentBucket": "amplify-ttc-dev-181102-deployment",
-          "S3DeploymentRootKey": "amplify-appsync-files/8eb74e0d733885a863914dfe22c258bbcb1febe6",
+          "S3DeploymentRootKey": "amplify-appsync-files/4e7036e7bfec1b20473ac14277479d304ea840d7",
           "env": "dev"
         }
       }
@@ -182,7 +182,65 @@
         "TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/function/preauth-cloudformation-template.json",
         "Parameters": {
           "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
-          "s3Key": "amplify-builds/preauth-6b58784c4549594e5368-build.zip",
+          "s3Key": "amplify-builds/preauth-496959657343745a7064-build.zip",
+          "apittcGraphQLAPIIdOutput": {
+            "Fn::GetAtt": [
+              "apittc",
+              "Outputs.GraphQLAPIIdOutput"
+            ]
+          },
+          "apittcGraphQLAPIEndpointOutput": {
+            "Fn::GetAtt": [
+              "apittc",
+              "Outputs.GraphQLAPIEndpointOutput"
+            ]
+          },
+          "apittcGraphQLAPIKeyOutput": {
+            "Fn::GetAtt": [
+              "apittc",
+              "Outputs.GraphQLAPIKeyOutput"
+            ]
+          },
+          "env": "dev"
+        }
+      }
+    },
+    "functionstartgame": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/function/startgame-cloudformation-template.json",
+        "Parameters": {
+          "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
+          "s3Key": "amplify-builds/startgame-4250774631306259464d-build.zip",
+          "apittcGraphQLAPIIdOutput": {
+            "Fn::GetAtt": [
+              "apittc",
+              "Outputs.GraphQLAPIIdOutput"
+            ]
+          },
+          "apittcGraphQLAPIEndpointOutput": {
+            "Fn::GetAtt": [
+              "apittc",
+              "Outputs.GraphQLAPIEndpointOutput"
+            ]
+          },
+          "apittcGraphQLAPIKeyOutput": {
+            "Fn::GetAtt": [
+              "apittc",
+              "Outputs.GraphQLAPIKeyOutput"
+            ]
+          },
+          "env": "dev"
+        }
+      }
+    },
+    "functionplaymove": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/function/playmove-cloudformation-template.json",
+        "Parameters": {
+          "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
+          "s3Key": "amplify-builds/playmove-664c766d6c776741706c-build.zip",
           "apittcGraphQLAPIIdOutput": {
             "Fn::GetAtt": [
               "apittc",
