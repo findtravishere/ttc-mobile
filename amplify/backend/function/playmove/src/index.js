@@ -99,7 +99,7 @@ exports.handler = async (event) => {
 
 	const symbol = player === game.initiator ? "x" : "o";
 	const nextTurn = game.owners.find((p) => p !== game.turn);
-	const invitee = game.owners.find((p) => p !== game.intiator);
+	const invitee = game.owners.find((p) => p !== game.initiator);
 	const newState = [...game.state];
 	newState[index] = symbol;
 	let newStatus = "ACTIVE";
