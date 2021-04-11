@@ -10,8 +10,15 @@ import { GetPlayerQuery } from "../../API";
 import MatchesItem from "./matches-item";
 import Modal from "react-native-modal";
 import PlayersModal from "./players-modal/players-modal";
+import { StackNavigationProp } from "@react-navigation/stack";
+import { StackNavigatorParams } from "../../config/navigator";
 
-export default function Matches(): ReactElement {
+type MatchesNavigationProp = StackNavigationProp<StackNavigatorParams, "Matches">;
+type MatchesProps = {
+	navigation: MatchesNavigationProp;
+};
+
+export default function Matches({ navigation }: MatchesProps): ReactElement {
 	const { user } = useLogged();
 	const [playerGames, setPlayerGames] = useState<PlayerGameType[] | null>(null);
 	const [nextToken, setNextToken] = useState<string | null>(null);
@@ -57,7 +64,16 @@ export default function Matches(): ReactElement {
 					<FlatList
 						contentContainerStyle={styles.container}
 						data={playerGames}
-						renderItem={({ item }) => <MatchesItem playerGame={item} />}
+						renderItem={({ item }) => (
+							<MatchesItem
+								onPress={() => {
+									if (item?.game) {
+										navigation.navigate("Game", { gameID: item?.game.id });
+									}
+								}}
+								playerGame={item}
+							/>
+						)}
 						keyExtractor={(playerGames) => (playerGames ? playerGames.game.id : `${new Date().getTime()}`)}
 						ListEmptyComponent={() => (
 							<View>
@@ -93,7 +109,13 @@ export default function Matches(): ReactElement {
 				onBackdropPress={() => setPlayersModal(false)}
 				onBackButtonPress={() => setPlayersModal(false)}
 			>
-				<PlayersModal />
+				<PlayersModal
+					onItemPress={(username) => {
+						console.log(username);
+						setPlayersModal(false);
+						navigation.navigate("Game", { invitee: username });
+					}}
+				/>
 			</Modal>
 		</ScrollView>
 	);

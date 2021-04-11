@@ -48,24 +48,24 @@ export type getGameQuery = {
 	} | null;
 };
 
-export type startGameMutationVariables = {
+export type startgameMutationVariables = {
 	invitee: string;
 };
 
-export type startGameMutation = {
-	startGame: {
+export type startgameMutation = {
+	startgame: {
 		__typename: "GameData";
 		id: string;
 	} | null;
 };
 
-export type playMoveMutationVariables = {
+export type playmoveMutationVariables = {
 	game: string;
 	index: number;
 };
 
-export type playMoveMutation = {
-	playMove: {
+export type playmoveMutation = {
+	playmove: {
 		__typename: "GameData";
 		id: string;
 		status: GameStatus;

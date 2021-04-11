@@ -8,7 +8,11 @@ import { searchPlayersQuery } from "../../../API";
 
 type PlayerListType = Exclude<searchPlayersQuery["searchPlayers"], null>["items"];
 
-export default function PlayersModal(): ReactElement {
+type PlayersModalProps = {
+	onItemPress: (username: string) => void;
+};
+
+export default function PlayersModal({ onItemPress }: PlayersModalProps): ReactElement {
 	const [players, setPlayers] = useState<PlayerListType>(null);
 	const [searchQuery, setSearchQuery] = useState("");
 
@@ -62,6 +66,11 @@ export default function PlayersModal(): ReactElement {
 					renderItem={({ item }) => {
 						return (
 							<TouchableOpacity
+								onPress={() => {
+									if (item) {
+										onItemPress(item?.username);
+									}
+								}}
 								style={{
 									backgroundColor: "white",
 									borderTopWidth: 1,

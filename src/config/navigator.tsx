@@ -5,7 +5,7 @@ import { Home, Game, Login, Register, Matches } from "../screens";
 
 export type StackNavigatorParams = {
 	Home: undefined;
-	Game: undefined;
+	Game: { gameID: string; invitee?: undefined } | { invitee: string; gameID?: undefined };
 	Login: { redirect: keyof StackNavigatorParams } | undefined;
 	Register: undefined;
 	Matches: undefined;

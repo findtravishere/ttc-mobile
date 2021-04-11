@@ -6,11 +6,12 @@ import { PlayerGameType, onUpdateGameById } from "./matches.graphql";
 import { API, graphqlOperation } from "aws-amplify";
 import Observable from "zen-observable";
 
-export default function MatchesItem({
-	playerGame: playerGameProp,
-}: {
+type MatchesItemProps = {
 	playerGame: PlayerGameType;
-}): ReactElement | null {
+	onPress: () => void;
+};
+
+export default function MatchesItem({ playerGame: playerGameProp, onPress }: MatchesItemProps): ReactElement | null {
 	const { user } = useLogged();
 	const [playerGame, setPlayerGame] = useState(playerGameProp);
 	const animationRef = useRef<Animated.Value>(new Animated.Value(0));
@@ -69,7 +70,12 @@ export default function MatchesItem({
 		}
 	}, []);
 	return (
-		<TouchableOpacity style={{ marginBottom: 20, alignItems: "center" }}>
+		<TouchableOpacity
+			onPress={() => {
+				onPress();
+			}}
+			style={{ marginBottom: 20, alignItems: "center" }}
+		>
 			<Animated.View
 				style={{
 					position: "absolute",
