@@ -1,441 +1,489 @@
 type Mutation {
-  startgame(invitee: String!): GameData @aws_cognito_user_pools
-  playmove(game: ID!, index: Int!): GameData @aws_cognito_user_pools
-  createPlayer(input: CreatePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam
-  updatePlayer(input: UpdatePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam @aws_cognito_user_pools
-  deletePlayer(input: DeletePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam
-  createPlayerGame(input: CreatePlayerGameInput!, condition: ModelPlayerGameConditionInput): PlayerGame @aws_iam
-  updatePlayerGame(input: UpdatePlayerGameInput!, condition: ModelPlayerGameConditionInput): PlayerGame @aws_iam
-  deletePlayerGame(input: DeletePlayerGameInput!, condition: ModelPlayerGameConditionInput): PlayerGame @aws_iam
-  createGame(input: CreateGameInput!, condition: ModelGameConditionInput): Game @aws_iam
-  updateGame(input: UpdateGameInput!, condition: ModelGameConditionInput): Game @aws_iam
-  deleteGame(input: DeleteGameInput!, condition: ModelGameConditionInput): Game @aws_iam
+    startgame(invitee: String!): GameData @aws_cognito_user_pools
+    playmove(game: ID!, index: Int!): GameData @aws_cognito_user_pools
+    createPlayer(input: CreatePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam
+    updatePlayer(input: UpdatePlayerInput!, condition: ModelPlayerConditionInput): Player
+        @aws_iam
+        @aws_cognito_user_pools
+    deletePlayer(input: DeletePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam
+    createPlayerGame(input: CreatePlayerGameInput!, condition: ModelPlayerGameConditionInput): PlayerGame
+        @aws_iam
+    updatePlayerGame(input: UpdatePlayerGameInput!, condition: ModelPlayerGameConditionInput): PlayerGame
+        @aws_iam
+    deletePlayerGame(input: DeletePlayerGameInput!, condition: ModelPlayerGameConditionInput): PlayerGame
+        @aws_iam
+    createGame(input: CreateGameInput!, condition: ModelGameConditionInput): Game @aws_iam
+    updateGame(input: UpdateGameInput!, condition: ModelGameConditionInput): Game @aws_iam
+    deleteGame(input: DeleteGameInput!, condition: ModelGameConditionInput): Game @aws_iam
 }
 
 type Subscription {
-  onUpdateGameById(id: ID!): Game @aws_subscribe(mutations: ["updateGame"]) @aws_cognito_user_pools
-  onCreatePlayer: Player @aws_subscribe(mutations: ["createPlayer"]) @aws_iam @aws_cognito_user_pools
-  onUpdatePlayer: Player @aws_subscribe(mutations: ["updatePlayer"]) @aws_iam @aws_cognito_user_pools
-  onDeletePlayer: Player @aws_subscribe(mutations: ["deletePlayer"]) @aws_iam @aws_cognito_user_pools
-  onCreatePlayerGame: PlayerGame @aws_subscribe(mutations: ["createPlayerGame"]) @aws_iam @aws_cognito_user_pools
-  onUpdatePlayerGame: PlayerGame @aws_subscribe(mutations: ["updatePlayerGame"]) @aws_iam @aws_cognito_user_pools
-  onDeletePlayerGame: PlayerGame @aws_subscribe(mutations: ["deletePlayerGame"]) @aws_iam @aws_cognito_user_pools
-  onCreateGame(owners: String): Game @aws_subscribe(mutations: ["createGame"]) @aws_iam @aws_cognito_user_pools
-  onUpdateGame(owners: String): Game @aws_subscribe(mutations: ["updateGame"]) @aws_iam @aws_cognito_user_pools
-  onDeleteGame(owners: String): Game @aws_subscribe(mutations: ["deleteGame"]) @aws_iam @aws_cognito_user_pools
+    onUpdateGameById(id: ID!): Game @aws_subscribe(mutations: ["updateGame"]) @aws_cognito_user_pools
+    onCreatePlayer: Player @aws_subscribe(mutations: ["createPlayer"]) @aws_iam @aws_cognito_user_pools
+    onUpdatePlayer: Player @aws_subscribe(mutations: ["updatePlayer"]) @aws_iam @aws_cognito_user_pools
+    onDeletePlayer: Player @aws_subscribe(mutations: ["deletePlayer"]) @aws_iam @aws_cognito_user_pools
+    onCreatePlayerGame: PlayerGame
+        @aws_subscribe(mutations: ["createPlayerGame"])
+        @aws_iam
+        @aws_cognito_user_pools
+    onUpdatePlayerGame: PlayerGame
+        @aws_subscribe(mutations: ["updatePlayerGame"])
+        @aws_iam
+        @aws_cognito_user_pools
+    onDeletePlayerGame: PlayerGame
+        @aws_subscribe(mutations: ["deletePlayerGame"])
+        @aws_iam
+        @aws_cognito_user_pools
+    onCreateGame(owners: String): Game
+        @aws_subscribe(mutations: ["createGame"])
+        @aws_iam
+        @aws_cognito_user_pools
+    onUpdateGame(owners: String): Game
+        @aws_subscribe(mutations: ["updateGame"])
+        @aws_iam
+        @aws_cognito_user_pools
+    onDeleteGame(owners: String): Game
+        @aws_subscribe(mutations: ["deleteGame"])
+        @aws_iam
+        @aws_cognito_user_pools
 }
 
 type GameData {
-  id: ID!
-  status: GameStatus!
-  turn: String!
-  state: [Symbol]!
-  winner: String
+    id: ID!
+    status: GameStatus!
+    turn: String!
+    state: [Symbol]!
+    winner: String
 }
 
 type Player @aws_iam @aws_cognito_user_pools {
-  id: ID!
-  cognitoID: String!
-  username: String!
-  name: String!
-  email: AWSEmail!
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-  games(createdAt: ModelStringKeyConditionInput, filter: ModelPlayerGameFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelPlayerGameConnection @aws_iam @aws_cognito_user_pools
+    id: ID!
+    cognitoID: String!
+    username: String!
+    name: String!
+    email: AWSEmail!
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+    games(
+        createdAt: ModelStringKeyConditionInput
+        filter: ModelPlayerGameFilterInput
+        sortDirection: ModelSortDirection
+        limit: Int
+        nextToken: String
+    ): ModelPlayerGameConnection @aws_iam @aws_cognito_user_pools
 }
 
 type PlayerGame @aws_iam @aws_cognito_user_pools {
-  id: ID!
-  createdAt: String!
-  gameID: ID!
-  playerUsername: String!
-  owners: [String!]!
-  updatedAt: AWSDateTime!
-  player: Player! @aws_iam @aws_cognito_user_pools
-  game: Game! @aws_iam @aws_cognito_user_pools
+    id: ID!
+    createdAt: String!
+    gameID: ID!
+    playerUsername: String!
+    owners: [String!]!
+    updatedAt: AWSDateTime!
+    player: Player! @aws_iam @aws_cognito_user_pools
+    game: Game! @aws_iam @aws_cognito_user_pools
 }
 
 type Game @aws_iam @aws_cognito_user_pools {
-  id: ID!
-  status: GameStatus!
-  owners: [String!]!
-  initiator: String!
-  turn: String!
-  state: [Symbol]!
-  winner: String
-  createdAt: AWSDateTime!
-  updatedAt: AWSDateTime!
-  players(filter: ModelPlayerGameFilterInput, sortDirection: ModelSortDirection, limit: Int, nextToken: String): ModelPlayerGameConnection @aws_iam @aws_cognito_user_pools
+    id: ID!
+    status: GameStatus!
+    owners: [String!]!
+    initiator: String!
+    turn: String!
+    state: [Symbol]!
+    winner: String
+    createdAt: AWSDateTime!
+    updatedAt: AWSDateTime!
+    players(
+        filter: ModelPlayerGameFilterInput
+        sortDirection: ModelSortDirection
+        limit: Int
+        nextToken: String
+    ): ModelPlayerGameConnection @aws_iam @aws_cognito_user_pools
 }
 
 enum GameStatus {
-  REQUESTED
-  DECLINED
-  ACTIVE
-  FINISHED
-  CANCELLED
+    REQUESTED
+    DECLINED
+    ACTIVE
+    FINISHED
+    CANCELLED
 }
 
 enum Symbol {
-  x
-  o
+    x
+    o
 }
 
 enum ModelSortDirection {
-  ASC
-  DESC
+    ASC
+    DESC
 }
 
 type ModelPlayerConnection @aws_iam @aws_cognito_user_pools {
-  items: [Player]
-  nextToken: String
+    items: [Player]
+    nextToken: String
 }
 
 input ModelStringInput {
-  ne: String
-  eq: String
-  le: String
-  lt: String
-  ge: String
-  gt: String
-  contains: String
-  notContains: String
-  between: [String]
-  beginsWith: String
-  attributeExists: Boolean
-  attributeType: ModelAttributeTypes
-  size: ModelSizeInput
+    ne: String
+    eq: String
+    le: String
+    lt: String
+    ge: String
+    gt: String
+    contains: String
+    notContains: String
+    between: [String]
+    beginsWith: String
+    attributeExists: Boolean
+    attributeType: ModelAttributeTypes
+    size: ModelSizeInput
 }
 
 input ModelIDInput {
-  ne: ID
-  eq: ID
-  le: ID
-  lt: ID
-  ge: ID
-  gt: ID
-  contains: ID
-  notContains: ID
-  between: [ID]
-  beginsWith: ID
-  attributeExists: Boolean
-  attributeType: ModelAttributeTypes
-  size: ModelSizeInput
+    ne: ID
+    eq: ID
+    le: ID
+    lt: ID
+    ge: ID
+    gt: ID
+    contains: ID
+    notContains: ID
+    between: [ID]
+    beginsWith: ID
+    attributeExists: Boolean
+    attributeType: ModelAttributeTypes
+    size: ModelSizeInput
 }
 
 input ModelIntInput {
-  ne: Int
-  eq: Int
-  le: Int
-  lt: Int
-  ge: Int
-  gt: Int
-  between: [Int]
-  attributeExists: Boolean
-  attributeType: ModelAttributeTypes
+    ne: Int
+    eq: Int
+    le: Int
+    lt: Int
+    ge: Int
+    gt: Int
+    between: [Int]
+    attributeExists: Boolean
+    attributeType: ModelAttributeTypes
 }
 
 input ModelFloatInput {
-  ne: Float
-  eq: Float
-  le: Float
-  lt: Float
-  ge: Float
-  gt: Float
-  between: [Float]
-  attributeExists: Boolean
-  attributeType: ModelAttributeTypes
+    ne: Float
+    eq: Float
+    le: Float
+    lt: Float
+    ge: Float
+    gt: Float
+    between: [Float]
+    attributeExists: Boolean
+    attributeType: ModelAttributeTypes
 }
 
 input ModelBooleanInput {
-  ne: Boolean
-  eq: Boolean
-  attributeExists: Boolean
-  attributeType: ModelAttributeTypes
+    ne: Boolean
+    eq: Boolean
+    attributeExists: Boolean
+    attributeType: ModelAttributeTypes
 }
 
 input ModelSizeInput {
-  ne: Int
-  eq: Int
-  le: Int
-  lt: Int
-  ge: Int
-  gt: Int
-  between: [Int]
+    ne: Int
+    eq: Int
+    le: Int
+    lt: Int
+    ge: Int
+    gt: Int
+    between: [Int]
 }
 
 input ModelPlayerFilterInput {
-  id: ModelIDInput
-  cognitoID: ModelStringInput
-  username: ModelStringInput
-  name: ModelStringInput
-  email: ModelStringInput
-  and: [ModelPlayerFilterInput]
-  or: [ModelPlayerFilterInput]
-  not: ModelPlayerFilterInput
+    id: ModelIDInput
+    cognitoID: ModelStringInput
+    username: ModelStringInput
+    name: ModelStringInput
+    email: ModelStringInput
+    and: [ModelPlayerFilterInput]
+    or: [ModelPlayerFilterInput]
+    not: ModelPlayerFilterInput
 }
 
 enum ModelAttributeTypes {
-  binary
-  binarySet
-  bool
-  list
-  map
-  number
-  numberSet
-  string
-  stringSet
-  _null
+    binary
+    binarySet
+    bool
+    list
+    map
+    number
+    numberSet
+    string
+    stringSet
+    _null
 }
 
 type Query {
-  listPlayers(username: String, filter: ModelPlayerFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelPlayerConnection @aws_iam @aws_cognito_user_pools
-  getPlayer(username: String!): Player @aws_iam @aws_cognito_user_pools
-  searchPlayers(filter: SearchablePlayerFilterInput, sort: SearchablePlayerSortInput, limit: Int, nextToken: String, from: Int): SearchablePlayerConnection @aws_iam @aws_cognito_user_pools
-  listGames(filter: ModelGameFilterInput, limit: Int, nextToken: String): ModelGameConnection @aws_iam @aws_cognito_user_pools
-  getGame(id: ID!): Game @aws_iam @aws_cognito_user_pools
+    listPlayers(
+        username: String
+        filter: ModelPlayerFilterInput
+        limit: Int
+        nextToken: String
+        sortDirection: ModelSortDirection
+    ): ModelPlayerConnection @aws_iam @aws_cognito_user_pools
+    getPlayer(username: String!): Player @aws_iam @aws_cognito_user_pools
+    searchPlayers(
+        filter: SearchablePlayerFilterInput
+        sort: SearchablePlayerSortInput
+        limit: Int
+        nextToken: String
+        from: Int
+    ): SearchablePlayerConnection @aws_iam @aws_cognito_user_pools
+    listGames(filter: ModelGameFilterInput, limit: Int, nextToken: String): ModelGameConnection
+        @aws_iam
+        @aws_cognito_user_pools
+    getGame(id: ID!): Game @aws_iam @aws_cognito_user_pools
 }
 
 input CreatePlayerInput {
-  id: ID
-  cognitoID: String!
-  username: String!
-  name: String!
-  email: AWSEmail!
+    id: ID
+    cognitoID: String!
+    username: String!
+    name: String!
+    email: AWSEmail!
 }
 
 input UpdatePlayerInput {
-  id: ID!
-  cognitoID: String
-  username: String
-  name: String
-  email: AWSEmail
+    id: ID!
+    cognitoID: String
+    username: String
+    name: String
+    email: AWSEmail
 }
 
 input DeletePlayerInput {
-  id: ID
+    id: ID
 }
 
 input ModelPlayerConditionInput {
-  cognitoID: ModelStringInput
-  name: ModelStringInput
-  email: ModelStringInput
-  and: [ModelPlayerConditionInput]
-  or: [ModelPlayerConditionInput]
-  not: ModelPlayerConditionInput
+    cognitoID: ModelStringInput
+    name: ModelStringInput
+    email: ModelStringInput
+    and: [ModelPlayerConditionInput]
+    or: [ModelPlayerConditionInput]
+    not: ModelPlayerConditionInput
 }
 
 input CreatePlayerGameInput {
-  id: ID
-  createdAt: String
-  gameID: ID!
-  playerUsername: String!
-  owners: [String!]!
+    id: ID
+    createdAt: String
+    gameID: ID!
+    playerUsername: String!
+    owners: [String!]!
 }
 
 input UpdatePlayerGameInput {
-  id: ID!
-  createdAt: String
-  gameID: ID
-  playerUsername: String
-  owners: [String!]
+    id: ID!
+    createdAt: String
+    gameID: ID
+    playerUsername: String
+    owners: [String!]
 }
 
 input DeletePlayerGameInput {
-  id: ID
+    id: ID
 }
 
 input ModelPlayerGameConditionInput {
-  createdAt: ModelStringInput
-  gameID: ModelIDInput
-  playerUsername: ModelStringInput
-  owners: ModelStringInput
-  and: [ModelPlayerGameConditionInput]
-  or: [ModelPlayerGameConditionInput]
-  not: ModelPlayerGameConditionInput
+    createdAt: ModelStringInput
+    gameID: ModelIDInput
+    playerUsername: ModelStringInput
+    owners: ModelStringInput
+    and: [ModelPlayerGameConditionInput]
+    or: [ModelPlayerGameConditionInput]
+    not: ModelPlayerGameConditionInput
 }
 
 type ModelGameConnection @aws_iam @aws_cognito_user_pools {
-  items: [Game]
-  nextToken: String
+    items: [Game]
+    nextToken: String
 }
 
 input ModelGameStatusInput {
-  eq: GameStatus
-  ne: GameStatus
+    eq: GameStatus
+    ne: GameStatus
 }
 
 input ModelSymbolListInput {
-  eq: [Symbol]
-  ne: [Symbol]
-  contains: Symbol
-  notContains: Symbol
+    eq: [Symbol]
+    ne: [Symbol]
+    contains: Symbol
+    notContains: Symbol
 }
 
 input ModelGameFilterInput {
-  id: ModelIDInput
-  status: ModelGameStatusInput
-  owners: ModelStringInput
-  initiator: ModelStringInput
-  turn: ModelStringInput
-  state: ModelSymbolListInput
-  winner: ModelStringInput
-  and: [ModelGameFilterInput]
-  or: [ModelGameFilterInput]
-  not: ModelGameFilterInput
+    id: ModelIDInput
+    status: ModelGameStatusInput
+    owners: ModelStringInput
+    initiator: ModelStringInput
+    turn: ModelStringInput
+    state: ModelSymbolListInput
+    winner: ModelStringInput
+    and: [ModelGameFilterInput]
+    or: [ModelGameFilterInput]
+    not: ModelGameFilterInput
 }
 
 input CreateGameInput {
-  id: ID
-  status: GameStatus!
-  owners: [String!]!
-  initiator: String!
-  turn: String!
-  state: [Symbol]!
-  winner: String
+    id: ID
+    status: GameStatus!
+    owners: [String!]!
+    initiator: String!
+    turn: String!
+    state: [Symbol]!
+    winner: String
 }
 
 input UpdateGameInput {
-  id: ID!
-  status: GameStatus
-  owners: [String!]
-  initiator: String
-  turn: String
-  state: [Symbol]
-  winner: String
+    id: ID!
+    status: GameStatus
+    owners: [String!]
+    initiator: String
+    turn: String
+    state: [Symbol]
+    winner: String
 }
 
 input DeleteGameInput {
-  id: ID
+    id: ID
 }
 
 input ModelGameConditionInput {
-  status: ModelGameStatusInput
-  initiator: ModelStringInput
-  turn: ModelStringInput
-  state: ModelSymbolListInput
-  winner: ModelStringInput
-  and: [ModelGameConditionInput]
-  or: [ModelGameConditionInput]
-  not: ModelGameConditionInput
+    status: ModelGameStatusInput
+    initiator: ModelStringInput
+    turn: ModelStringInput
+    state: ModelSymbolListInput
+    winner: ModelStringInput
+    and: [ModelGameConditionInput]
+    or: [ModelGameConditionInput]
+    not: ModelGameConditionInput
 }
 
 input ModelStringKeyConditionInput {
-  eq: String
-  le: String
-  lt: String
-  ge: String
-  gt: String
-  between: [String]
-  beginsWith: String
+    eq: String
+    le: String
+    lt: String
+    ge: String
+    gt: String
+    between: [String]
+    beginsWith: String
 }
 
 type ModelPlayerGameConnection @aws_iam @aws_cognito_user_pools {
-  items: [PlayerGame]
-  nextToken: String
+    items: [PlayerGame]
+    nextToken: String
 }
 
 input ModelPlayerGameFilterInput {
-  id: ModelIDInput
-  createdAt: ModelStringInput
-  gameID: ModelIDInput
-  playerUsername: ModelStringInput
-  owners: ModelStringInput
-  and: [ModelPlayerGameFilterInput]
-  or: [ModelPlayerGameFilterInput]
-  not: ModelPlayerGameFilterInput
+    id: ModelIDInput
+    createdAt: ModelStringInput
+    gameID: ModelIDInput
+    playerUsername: ModelStringInput
+    owners: ModelStringInput
+    and: [ModelPlayerGameFilterInput]
+    or: [ModelPlayerGameFilterInput]
+    not: ModelPlayerGameFilterInput
 }
 
 input SearchableStringFilterInput {
-  ne: String
-  gt: String
-  lt: String
-  gte: String
-  lte: String
-  eq: String
-  match: String
-  matchPhrase: String
-  matchPhrasePrefix: String
-  multiMatch: String
-  exists: Boolean
-  wildcard: String
-  regexp: String
-  range: [String]
+    ne: String
+    gt: String
+    lt: String
+    gte: String
+    lte: String
+    eq: String
+    match: String
+    matchPhrase: String
+    matchPhrasePrefix: String
+    multiMatch: String
+    exists: Boolean
+    wildcard: String
+    regexp: String
+    range: [String]
 }
 
 input SearchableIntFilterInput {
-  ne: Int
-  gt: Int
-  lt: Int
-  gte: Int
-  lte: Int
-  eq: Int
-  range: [Int]
+    ne: Int
+    gt: Int
+    lt: Int
+    gte: Int
+    lte: Int
+    eq: Int
+    range: [Int]
 }
 
 input SearchableFloatFilterInput {
-  ne: Float
-  gt: Float
-  lt: Float
-  gte: Float
-  lte: Float
-  eq: Float
-  range: [Float]
+    ne: Float
+    gt: Float
+    lt: Float
+    gte: Float
+    lte: Float
+    eq: Float
+    range: [Float]
 }
 
 input SearchableBooleanFilterInput {
-  eq: Boolean
-  ne: Boolean
+    eq: Boolean
+    ne: Boolean
 }
 
 input SearchableIDFilterInput {
-  ne: ID
-  gt: ID
-  lt: ID
-  gte: ID
-  lte: ID
-  eq: ID
-  match: ID
-  matchPhrase: ID
-  matchPhrasePrefix: ID
-  multiMatch: ID
-  exists: Boolean
-  wildcard: ID
-  regexp: ID
-  range: [ID]
+    ne: ID
+    gt: ID
+    lt: ID
+    gte: ID
+    lte: ID
+    eq: ID
+    match: ID
+    matchPhrase: ID
+    matchPhrasePrefix: ID
+    multiMatch: ID
+    exists: Boolean
+    wildcard: ID
+    regexp: ID
+    range: [ID]
 }
 
 input SearchablePlayerFilterInput {
-  id: SearchableIDFilterInput
-  cognitoID: SearchableStringFilterInput
-  username: SearchableStringFilterInput
-  name: SearchableStringFilterInput
-  email: SearchableStringFilterInput
-  and: [SearchablePlayerFilterInput]
-  or: [SearchablePlayerFilterInput]
-  not: SearchablePlayerFilterInput
+    id: SearchableIDFilterInput
+    cognitoID: SearchableStringFilterInput
+    username: SearchableStringFilterInput
+    name: SearchableStringFilterInput
+    email: SearchableStringFilterInput
+    and: [SearchablePlayerFilterInput]
+    or: [SearchablePlayerFilterInput]
+    not: SearchablePlayerFilterInput
 }
 
 enum SearchableSortDirection {
-  asc
-  desc
+    asc
+    desc
 }
 
 enum SearchablePlayerSortableFields {
-  id
-  cognitoID
-  username
-  name
-  email
+    id
+    cognitoID
+    username
+    name
+    email
 }
 
 input SearchablePlayerSortInput {
-  field: SearchablePlayerSortableFields
-  direction: SearchableSortDirection
+    field: SearchablePlayerSortableFields
+    direction: SearchableSortDirection
 }
 
 type SearchablePlayerConnection @aws_iam @aws_cognito_user_pools {
-  items: [Player]
-  nextToken: String
-  total: Int
+    items: [Player]
+    nextToken: String
+    total: Int
 }

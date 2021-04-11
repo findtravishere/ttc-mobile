@@ -7,11 +7,11 @@ import { LoggedProvider } from "./contexts/logged-context";
 Amplify.configure(awsExports);
 
 export default function App(): ReactElement {
-	return (
-		<LoggedProvider>
-			<LoadUp>
-				<Navigator></Navigator>
-			</LoadUp>
-		</LoggedProvider>
-	);
+    return (
+        <LoggedProvider>
+            <LoadUp>
+                <Navigator></Navigator>
+            </LoadUp>
+        </LoggedProvider>
+    );
 }

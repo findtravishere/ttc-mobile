@@ -1,11 +1,8 @@
 {
-  "permissions": {
-    "api": {
-      "ttc": [
-        "Query",
-        "Mutation"
-      ]
-    }
-  },
-  "lambdaLayers": []
+    "permissions": {
+        "api": {
+            "ttc": ["Query", "Mutation"]
+        }
+    },
+    "lambdaLayers": []
 }
