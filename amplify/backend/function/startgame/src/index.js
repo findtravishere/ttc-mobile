@@ -55,7 +55,7 @@ exports.handler = async (event, context, callback) => {
 		throw new Error("At least 1 player does not exist!");
 	}
 
-	if (!initiatorResponse.data.getPlayer.id === inviteeResponse.data.getPlayer.id) {
+	if (initiatorResponse.data.getPlayer.id === inviteeResponse.data.getPlayer.id) {
 		console.log("Can't self invite");
 		throw new Error("Can't self invite");
 	}

@@ -30,7 +30,7 @@
         },
         "startgame": {
           "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
-          "s3Key": "amplify-builds/startgame-4250774631306259464d-build.zip"
+          "s3Key": "amplify-builds/startgame-547652484e6e34307533-build.zip"
         }
       }
     }

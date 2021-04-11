@@ -3,6 +3,10 @@ type Mutation {
 	playmove(game: ID!, index: Int!): GameData @function(name: "playmove-${env}") @aws_cognito_user_pools
 }
 
+type Subscription {
+	onUpdateGameById(id: ID!): Game @aws_subscribe(mutations: ["updateGame"]) @aws_cognito_user_pools
+}
+
 type GameData {
 	id: ID!
 	status: GameStatus!
@@ -13,6 +17,7 @@ type GameData {
 
 type Player
 	@model
+	@searchable
 	@key(fields: ["username"])
 	@auth(
 		rules: [

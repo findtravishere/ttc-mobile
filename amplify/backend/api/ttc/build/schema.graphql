@@ -12,6 +12,19 @@ type Mutation {
   deleteGame(input: DeleteGameInput!, condition: ModelGameConditionInput): Game @aws_iam
 }
 
+type Subscription {
+  onUpdateGameById(id: ID!): Game @aws_subscribe(mutations: ["updateGame"]) @aws_cognito_user_pools
+  onCreatePlayer: Player @aws_subscribe(mutations: ["createPlayer"]) @aws_iam @aws_cognito_user_pools
+  onUpdatePlayer: Player @aws_subscribe(mutations: ["updatePlayer"]) @aws_iam @aws_cognito_user_pools
+  onDeletePlayer: Player @aws_subscribe(mutations: ["deletePlayer"]) @aws_iam @aws_cognito_user_pools
+  onCreatePlayerGame: PlayerGame @aws_subscribe(mutations: ["createPlayerGame"]) @aws_iam @aws_cognito_user_pools
+  onUpdatePlayerGame: PlayerGame @aws_subscribe(mutations: ["updatePlayerGame"]) @aws_iam @aws_cognito_user_pools
+  onDeletePlayerGame: PlayerGame @aws_subscribe(mutations: ["deletePlayerGame"]) @aws_iam @aws_cognito_user_pools
+  onCreateGame(owners: String): Game @aws_subscribe(mutations: ["createGame"]) @aws_iam @aws_cognito_user_pools
+  onUpdateGame(owners: String): Game @aws_subscribe(mutations: ["updateGame"]) @aws_iam @aws_cognito_user_pools
+  onDeleteGame(owners: String): Game @aws_subscribe(mutations: ["deleteGame"]) @aws_iam @aws_cognito_user_pools
+}
+
 type GameData {
   id: ID!
   status: GameStatus!
@@ -178,6 +191,7 @@ enum ModelAttributeTypes {
 type Query {
   listPlayers(username: String, filter: ModelPlayerFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelPlayerConnection @aws_iam @aws_cognito_user_pools
   getPlayer(username: String!): Player @aws_iam @aws_cognito_user_pools
+  searchPlayers(filter: SearchablePlayerFilterInput, sort: SearchablePlayerSortInput, limit: Int, nextToken: String, from: Int): SearchablePlayerConnection @aws_iam @aws_cognito_user_pools
   listGames(filter: ModelGameFilterInput, limit: Int, nextToken: String): ModelGameConnection @aws_iam @aws_cognito_user_pools
   getGame(id: ID!): Game @aws_iam @aws_cognito_user_pools
 }
@@ -209,18 +223,6 @@ input ModelPlayerConditionInput {
   and: [ModelPlayerConditionInput]
   or: [ModelPlayerConditionInput]
   not: ModelPlayerConditionInput
-}
-
-type Subscription {
-  onCreatePlayer: Player @aws_subscribe(mutations: ["createPlayer"]) @aws_iam @aws_cognito_user_pools
-  onUpdatePlayer: Player @aws_subscribe(mutations: ["updatePlayer"]) @aws_iam @aws_cognito_user_pools
-  onDeletePlayer: Player @aws_subscribe(mutations: ["deletePlayer"]) @aws_iam @aws_cognito_user_pools
-  onCreatePlayerGame: PlayerGame @aws_subscribe(mutations: ["createPlayerGame"]) @aws_iam @aws_cognito_user_pools
-  onUpdatePlayerGame: PlayerGame @aws_subscribe(mutations: ["updatePlayerGame"]) @aws_iam @aws_cognito_user_pools
-  onDeletePlayerGame: PlayerGame @aws_subscribe(mutations: ["deletePlayerGame"]) @aws_iam @aws_cognito_user_pools
-  onCreateGame(owners: String): Game @aws_subscribe(mutations: ["createGame"]) @aws_iam @aws_cognito_user_pools
-  onUpdateGame(owners: String): Game @aws_subscribe(mutations: ["updateGame"]) @aws_iam @aws_cognito_user_pools
-  onDeleteGame(owners: String): Game @aws_subscribe(mutations: ["deleteGame"]) @aws_iam @aws_cognito_user_pools
 }
 
 input CreatePlayerGameInput {
@@ -342,4 +344,98 @@ input ModelPlayerGameFilterInput {
   and: [ModelPlayerGameFilterInput]
   or: [ModelPlayerGameFilterInput]
   not: ModelPlayerGameFilterInput
+}
+
+input SearchableStringFilterInput {
+  ne: String
+  gt: String
+  lt: String
+  gte: String
+  lte: String
+  eq: String
+  match: String
+  matchPhrase: String
+  matchPhrasePrefix: String
+  multiMatch: String
+  exists: Boolean
+  wildcard: String
+  regexp: String
+  range: [String]
+}
+
+input SearchableIntFilterInput {
+  ne: Int
+  gt: Int
+  lt: Int
+  gte: Int
+  lte: Int
+  eq: Int
+  range: [Int]
+}
+
+input SearchableFloatFilterInput {
+  ne: Float
+  gt: Float
+  lt: Float
+  gte: Float
+  lte: Float
+  eq: Float
+  range: [Float]
+}
+
+input SearchableBooleanFilterInput {
+  eq: Boolean
+  ne: Boolean
+}
+
+input SearchableIDFilterInput {
+  ne: ID
+  gt: ID
+  lt: ID
+  gte: ID
+  lte: ID
+  eq: ID
+  match: ID
+  matchPhrase: ID
+  matchPhrasePrefix: ID
+  multiMatch: ID
+  exists: Boolean
+  wildcard: ID
+  regexp: ID
+  range: [ID]
+}
+
+input SearchablePlayerFilterInput {
+  id: SearchableIDFilterInput
+  cognitoID: SearchableStringFilterInput
+  username: SearchableStringFilterInput
+  name: SearchableStringFilterInput
+  email: SearchableStringFilterInput
+  and: [SearchablePlayerFilterInput]
+  or: [SearchablePlayerFilterInput]
+  not: SearchablePlayerFilterInput
+}
+
+enum SearchableSortDirection {
+  asc
+  desc
+}
+
+enum SearchablePlayerSortableFields {
+  id
+  cognitoID
+  username
+  name
+  email
+}
+
+input SearchablePlayerSortInput {
+  field: SearchablePlayerSortableFields
+  direction: SearchableSortDirection
+}
+
+type SearchablePlayerConnection @aws_iam @aws_cognito_user_pools {
+  items: [Player]
+  nextToken: String
+  total: Int
 }
