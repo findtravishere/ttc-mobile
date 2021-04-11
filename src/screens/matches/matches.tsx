@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from "react";
-import { ScrollView, View, Alert, FlatList, TouchableOpacity, RefreshControl } from "react-native";
+import { ScrollView, View, Alert, FlatList, TouchableOpacity, RefreshControl, Dimensions } from "react-native";
 import { Text, Button } from "../../components";
 import styles from "./matches.styles";
 import { useLogged } from "../../contexts/logged-context";
@@ -8,12 +8,15 @@ import { API, graphqlOperation } from "aws-amplify";
 import { GraphQLResult } from "@aws-amplify/api";
 import { GetPlayerQuery } from "../../API";
 import MatchesItem from "./matches-item";
+import Modal from "react-native-modal";
+import PlayersModal from "./players-modal/players-modal";
 
 export default function Matches(): ReactElement {
 	const { user } = useLogged();
 	const [playerGames, setPlayerGames] = useState<PlayerGameType[] | null>(null);
 	const [nextToken, setNextToken] = useState<string | null>(null);
 	const [refreshing, setRefreshing] = useState(false);
+	const [playersModal, setPlayersModal] = useState(false);
 
 	const fetchPlayer = async (nextToken: string | null) => {
 		if (user) {
@@ -74,14 +77,24 @@ export default function Matches(): ReactElement {
 						refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => fetchPlayer(null)} />}
 					/>
 					<TouchableOpacity
+						onPress={() => setPlayersModal(true)}
 						style={{ alignItems: "center", borderColor: "green", borderWidth: 5, padding: 20 }}
 					>
-						<Text style={{ fontSize: 17 }}>NEW GAME</Text>
+						<Text style={{ fontSize: 17, alignItems: "center" }}>NEW GAME</Text>
 					</TouchableOpacity>
 				</>
 			) : (
 				<View>you are not logged in</View>
 			)}
+			<Modal
+				style={{ margin: 0 }}
+				isVisible={playersModal}
+				backdropOpacity={0.75}
+				onBackdropPress={() => setPlayersModal(false)}
+				onBackButtonPress={() => setPlayersModal(false)}
+			>
+				<PlayersModal />
+			</Modal>
 		</ScrollView>
 	);
 }

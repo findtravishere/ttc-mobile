@@ -1,13 +1,20 @@
-import React, { ReactElement, useEffect } from "react";
-import { View, TouchableOpacity } from "react-native";
+import React, { ReactElement, useEffect, useState, useRef } from "react";
+import { TouchableOpacity, Animated } from "react-native";
 import { Text } from "../../components";
 import { useLogged } from "../../contexts/logged-context";
 import { PlayerGameType, onUpdateGameById } from "./matches.graphql";
 import { API, graphqlOperation } from "aws-amplify";
 import Observable from "zen-observable";
 
-export default function MatchesItem({ playerGame }: { playerGame: PlayerGameType }): ReactElement | null {
+export default function MatchesItem({
+	playerGame: playerGameProp,
+}: {
+	playerGame: PlayerGameType;
+}): ReactElement | null {
 	const { user } = useLogged();
+	const [playerGame, setPlayerGame] = useState(playerGameProp);
+	const animationRef = useRef<Animated.Value>(new Animated.Value(0));
+
 	const getResult = (playerGame: PlayerGameType): "win" | "loss" | "draw" | false => {
 		if (!playerGame || !user) return false;
 		const game = playerGame.game;
@@ -20,7 +27,7 @@ export default function MatchesItem({ playerGame }: { playerGame: PlayerGameType
 	};
 
 	const game = playerGame?.game;
-	if (!user) return null;
+	if (!user || !playerGame) return null;
 	const result = getResult(playerGame);
 	const opponent = game?.players?.items?.find((playerGame) => playerGame?.player.username !== user.username);
 
@@ -34,6 +41,26 @@ export default function MatchesItem({ playerGame }: { playerGame: PlayerGameType
 			const subscription = gameUpdates.subscribe({
 				next: ({ value }) => {
 					console.log(value);
+					const newGame = value.data.onUpdateGameById;
+					if (newGame) {
+						setPlayerGame({ ...playerGame, ["game"]: { ...playerGame?.game, ...newGame } });
+						if (newGame.status === "FINISHED") {
+							subscription.unsubscribe();
+						}
+						Animated.sequence([
+							Animated.timing(animationRef.current, {
+								toValue: 1,
+								duration: 500,
+								useNativeDriver: false,
+							}),
+							Animated.delay(1000),
+							Animated.timing(animationRef.current, {
+								toValue: 0,
+								duration: 500,
+								useNativeDriver: false,
+							}),
+						]).start();
+					}
 				},
 			});
 			return () => {
@@ -43,6 +70,19 @@ export default function MatchesItem({ playerGame }: { playerGame: PlayerGameType
 	}, []);
 	return (
 		<TouchableOpacity style={{ marginBottom: 20, alignItems: "center" }}>
+			<Animated.View
+				style={{
+					position: "absolute",
+					top: 0,
+					left: 0,
+					bottom: 0,
+					right: 0,
+					backgroundColor: animationRef.current.interpolate({
+						inputRange: [0, 1],
+						outputRange: ["orange", "yellow"],
+					}),
+				}}
+			/>
 			<Text>
 				{opponent?.player.name} ({opponent?.player.username})
 			</Text>
