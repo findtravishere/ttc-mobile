@@ -1,5 +1,6 @@
 type Mutation {
   startgame(invitee: String!): GameData @aws_cognito_user_pools
+  playmove(game: ID!, index: Int!): GameData @aws_cognito_user_pools
   createPlayer(input: CreatePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam
   updatePlayer(input: UpdatePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam @aws_cognito_user_pools
   deletePlayer(input: DeletePlayerInput!, condition: ModelPlayerConditionInput): Player @aws_iam

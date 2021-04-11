@@ -1,5 +1,6 @@
 type Mutation {
 	startgame(invitee: String!): GameData @function(name: "startgame-${env}") @aws_cognito_user_pools
+	playmove(game: ID!, index: Int!): GameData @function(name: "playmove-${env}") @aws_cognito_user_pools
 }
 
 type GameData {

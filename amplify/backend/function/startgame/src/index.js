@@ -12,7 +12,7 @@ require("cross-fetch/polyfill");
 
 exports.handler = async (event, context, callback) => {
 	const graphqlClient = new appsync.AWSAppSyncClient({
-		url: process.env.API_TICTACTOE_GRAPHQLAPIENDPOINTOUTPUT,
+		url: process.env.API_TTC_GRAPHQLAPIENDPOINTOUTPUT,
 		region: process.env.REGION,
 		auth: {
 			type: "AWS_IAM",
