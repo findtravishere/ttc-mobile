@@ -34,7 +34,7 @@ export default function Matches({ navigation }: MatchesProps): ReactElement {
 				const player = (await API.graphql(
 					graphqlOperation(getPlayer, {
 						username: user.username,
-						limit: 2,
+						limit: 10,
 						sortDirection: "DESC",
 						nextToken: nextToken,
 					})
