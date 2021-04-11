@@ -1,0 +1,17 @@
+{
+    "CreateAPIKey": 1,
+    "AppSyncApiName": "ttc",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authttc3e65df7f",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "S3DeploymentBucket": "amplify-ttc-dev-181102-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/0ad13a6f821cdbf87fa6f34b089324741cd92131"
+}
