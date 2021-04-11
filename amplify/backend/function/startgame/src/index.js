@@ -68,7 +68,7 @@ exports.handler = async (event, context, callback) => {
 			$turn: String!
 			$state: [Symbol]!
 		) {
-			createGame(input: { status: $status, owners: $owners, initiator: $initator, turn: $turn, state: $state }) {
+			createGame(input: { status: $status, owners: $owners, initiator: $initiator, turn: $turn, state: $state }) {
 				id
 				state
 				status
@@ -84,7 +84,7 @@ exports.handler = async (event, context, callback) => {
 			status: "REQUESTED",
 			owners: [initiator, invitee],
 			initiator: initiator,
-			turn: Math.random() < 0.5 ? initator : invitee,
+			turn: Math.random() < 0.5 ? initiator : invitee,
 			state: [null, null, null, null, null, null, null, null, null],
 		},
 	});
