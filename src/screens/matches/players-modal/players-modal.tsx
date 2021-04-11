@@ -33,7 +33,7 @@ export default function PlayersModal({ onItemPress }: PlayersModalProps): ReactE
 		}
 	};
 	useEffect(() => {
-		fetchPlayers("player");
+		fetchPlayers("");
 	}, []);
 	return (
 		<View

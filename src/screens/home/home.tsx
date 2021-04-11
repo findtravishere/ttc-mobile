@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { ScrollView, TouchableOpacity, Alert } from "react-native";
+import { View, TouchableOpacity, Alert } from "react-native";
 import styles from "./home.styles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "../../config/navigator";
@@ -15,8 +15,8 @@ export default function Home({ navigation }: HomeProps): ReactElement {
 	const { user } = useLogged();
 	const [signOut, setSignOut] = useState(false);
 	return (
-		<ScrollView contentContainerStyle={styles.container}>
-			<Text style={{ fontSize: 30, marginBottom: 50 }}>SERVERLESS TIC TAC TOE</Text>
+		<View style={styles.container}>
+			<Text style={{ fontSize: 30, marginBottom: 20 }}>SERVERLESS TIC TAC TOE</Text>
 			<Button
 				onPress={() => {
 					if (user) {
@@ -44,7 +44,7 @@ export default function Home({ navigation }: HomeProps): ReactElement {
 				title={user ? "Logout" : "Login"}
 			/>
 
-			{user && <Text style={{ marginTop: 400, fontSize: 20, color: "green" }}>Logged in as {user.username}</Text>}
-		</ScrollView>
+			{user && <Text style={{ marginTop: 200, fontSize: 30, color: "green" }}>Logged in as {user.username}</Text>}
+		</View>
 	);
 }
