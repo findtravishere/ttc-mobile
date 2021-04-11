@@ -240,7 +240,7 @@
         "TemplateURL": "https://s3.amazonaws.com/amplify-ttc-dev-181102-deployment/amplify-cfn-templates/function/playmove-cloudformation-template.json",
         "Parameters": {
           "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
-          "s3Key": "amplify-builds/playmove-664c766d6c776741706c-build.zip",
+          "s3Key": "amplify-builds/playmove-4432584874335874594d-build.zip",
           "apittcGraphQLAPIIdOutput": {
             "Fn::GetAtt": [
               "apittc",

@@ -26,7 +26,7 @@
         },
         "playmove": {
           "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
-          "s3Key": "amplify-builds/playmove-664c766d6c776741706c-build.zip"
+          "s3Key": "amplify-builds/playmove-4432584874335874594d-build.zip"
         },
         "startgame": {
           "deploymentBucketName": "amplify-ttc-dev-181102-deployment",
