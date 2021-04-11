@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from "react";
-import { View, ScrollView, TouchableOpacity, Alert } from "react-native";
+import { ScrollView, TouchableOpacity, Alert } from "react-native";
 import styles from "./home.styles";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { StackNavigatorParams } from "../../config/navigator";
@@ -17,7 +17,16 @@ export default function Home({ navigation }: HomeProps): ReactElement {
 	return (
 		<ScrollView contentContainerStyle={styles.container}>
 			<Text style={{ fontSize: 30, marginBottom: 50 }}>SERVERLESS TIC TAC TOE</Text>
-			<Button onPress={() => navigation.navigate("Game")} title="Game" />
+			<Button
+				onPress={() => {
+					if (user) {
+						navigation.navigate("Matches");
+					} else {
+						navigation.navigate("Login", { redirect: "Matches" });
+					}
+				}}
+				title="Matches"
+			/>
 			<Button
 				onPress={async () => {
 					if (user) {
