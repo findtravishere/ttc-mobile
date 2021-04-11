@@ -83,10 +83,7 @@
             ]
         },
         "AlwaysFalse": {
-            "Fn::Equals": [
-                "true",
-                "false"
-            ]
+            "Fn::Equals": ["true", "false"]
         }
     },
     "Outputs": {

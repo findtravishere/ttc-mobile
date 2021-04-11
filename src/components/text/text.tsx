@@ -2,14 +2,14 @@ import React, { ReactNode, ReactElement } from "react";
 import { Text as NativeText, TextProps as NativeTextProps } from "react-native";
 
 type TextProps = {
-	children: ReactNode;
+    children: ReactNode;
 } & NativeTextProps;
 
 export default function Text({ children, style, ...props }: TextProps): ReactElement {
-	let fontFamily = "Actor_400Regular";
-	return (
-		<NativeText {...props} style={[{ fontFamily }, style]}>
-			{children}
-		</NativeText> // spreading props to get the onpress props passed down
-	);
+    let fontFamily = "Actor_400Regular";
+    return (
+        <NativeText {...props} style={[{ fontFamily }, style]}>
+            {children}
+        </NativeText> // spreading props to get the onpress props passed down
+    );
 }

@@ -17,28 +17,19 @@
             "Type": "String",
             "Description": "Configure @model types to create DynamoDB tables with PAY_PER_REQUEST or PROVISIONED billing modes.",
             "Default": "PAY_PER_REQUEST",
-            "AllowedValues": [
-                "PAY_PER_REQUEST",
-                "PROVISIONED"
-            ]
+            "AllowedValues": ["PAY_PER_REQUEST", "PROVISIONED"]
         },
         "DynamoDBEnablePointInTimeRecovery": {
             "Type": "String",
             "Description": "Whether to enable Point in Time Recovery on the table",
             "Default": "false",
-            "AllowedValues": [
-                "true",
-                "false"
-            ]
+            "AllowedValues": ["true", "false"]
         },
         "DynamoDBEnableServerSideEncryption": {
             "Type": "String",
             "Description": "Enable server side encryption powered by KMS.",
             "Default": "true",
-            "AllowedValues": [
-                "true",
-                "false"
-            ]
+            "AllowedValues": ["true", "false"]
         },
         "ElasticSearchAccessIAMRoleName": {
             "Type": "String",
@@ -69,10 +60,7 @@
             "Type": "Number",
             "Description": "Enable debug logs for the Dynamo -> ES streaming lambda.",
             "Default": 1,
-            "AllowedValues": [
-                0,
-                1
-            ]
+            "AllowedValues": [0, 1]
         },
         "ElasticSearchInstanceCount": {
             "Type": "Number",
@@ -251,11 +239,7 @@
                 },
                 "SSESpecification": {
                     "SSEEnabled": {
-                        "Fn::If": [
-                            "ShouldUseServerSideEncryption",
-                            true,
-                            false
-                        ]
+                        "Fn::If": ["ShouldUseServerSideEncryption", true, false]
                     }
                 },
                 "PointInTimeRecoverySpecification": {
@@ -429,10 +413,7 @@
                 "Name": "PlayerTable",
                 "Type": "AMAZON_DYNAMODB",
                 "ServiceRoleArn": {
-                    "Fn::GetAtt": [
-                        "PlayerIAMRole",
-                        "Arn"
-                    ]
+                    "Fn::GetAtt": ["PlayerIAMRole", "Arn"]
                 },
                 "DynamoDBConfig": {
                     "AwsRegion": {
@@ -470,9 +451,7 @@
                     }
                 }
             },
-            "DependsOn": [
-                "PlayerIAMRole"
-            ]
+            "DependsOn": ["PlayerIAMRole"]
         },
         "GetPlayerResolver": {
             "Type": "AWS::AppSync::Resolver",
@@ -481,10 +460,7 @@
                     "Ref": "GetAttGraphQLAPIApiId"
                 },
                 "DataSourceName": {
-                    "Fn::GetAtt": [
-                        "PlayerDataSource",
-                        "Name"
-                    ]
+                    "Fn::GetAtt": ["PlayerDataSource", "Name"]
                 },
                 "FieldName": "getPlayer",
                 "TypeName": "Query",
@@ -499,15 +475,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "ResolverFileName": {
-                                "Fn::Join": [
-                                    ".",
-                                    [
-                                        "Query",
-                                        "getPlayer",
-                                        "req",
-                                        "vtl"
-                                    ]
-                                ]
+                                "Fn::Join": [".", ["Query", "getPlayer", "req", "vtl"]]
                             }
                         }
                     ]
@@ -523,15 +491,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "ResolverFileName": {
-                                "Fn::Join": [
-                                    ".",
-                                    [
-                                        "Query",
-                                        "getPlayer",
-                                        "res",
-                                        "vtl"
-                                    ]
-                                ]
+                                "Fn::Join": [".", ["Query", "getPlayer", "res", "vtl"]]
                             }
                         }
                     ]
@@ -545,10 +505,7 @@
                     "Ref": "GetAttGraphQLAPIApiId"
                 },
                 "DataSourceName": {
-                    "Fn::GetAtt": [
-                        "PlayerDataSource",
-                        "Name"
-                    ]
+                    "Fn::GetAtt": ["PlayerDataSource", "Name"]
                 },
                 "FieldName": "listPlayers",
                 "TypeName": "Query",
@@ -563,15 +520,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "ResolverFileName": {
-                                "Fn::Join": [
-                                    ".",
-                                    [
-                                        "Query",
-                                        "listPlayers",
-                                        "req",
-                                        "vtl"
-                                    ]
-                                ]
+                                "Fn::Join": [".", ["Query", "listPlayers", "req", "vtl"]]
                             }
                         }
                     ]
@@ -587,15 +536,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "ResolverFileName": {
-                                "Fn::Join": [
-                                    ".",
-                                    [
-                                        "Query",
-                                        "listPlayers",
-                                        "res",
-                                        "vtl"
-                                    ]
-                                ]
+                                "Fn::Join": [".", ["Query", "listPlayers", "res", "vtl"]]
                             }
                         }
                     ]
@@ -609,10 +550,7 @@
                     "Ref": "GetAttGraphQLAPIApiId"
                 },
                 "DataSourceName": {
-                    "Fn::GetAtt": [
-                        "PlayerDataSource",
-                        "Name"
-                    ]
+                    "Fn::GetAtt": ["PlayerDataSource", "Name"]
                 },
                 "FieldName": "createPlayer",
                 "TypeName": "Mutation",
@@ -627,15 +565,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "ResolverFileName": {
-                                "Fn::Join": [
-                                    ".",
-                                    [
-                                        "Mutation",
-                                        "createPlayer",
-                                        "req",
-                                        "vtl"
-                                    ]
-                                ]
+                                "Fn::Join": [".", ["Mutation", "createPlayer", "req", "vtl"]]
                             }
                         }
                     ]
@@ -651,15 +581,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "ResolverFileName": {
-                                "Fn::Join": [
-                                    ".",
-                                    [
-                                        "Mutation",
-                                        "createPlayer",
-                                        "res",
-                                        "vtl"
-                                    ]
-                                ]
+                                "Fn::Join": [".", ["Mutation", "createPlayer", "res", "vtl"]]
                             }
                         }
                     ]
@@ -673,10 +595,7 @@
                     "Ref": "GetAttGraphQLAPIApiId"
                 },
                 "DataSourceName": {
-                    "Fn::GetAtt": [
-                        "PlayerDataSource",
-                        "Name"
-                    ]
+                    "Fn::GetAtt": ["PlayerDataSource", "Name"]
                 },
                 "FieldName": "updatePlayer",
                 "TypeName": "Mutation",
@@ -691,15 +610,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "ResolverFileName": {
-                                "Fn::Join": [
-                                    ".",
-                                    [
-                                        "Mutation",
-                                        "updatePlayer",
-                                        "req",
-                                        "vtl"
-                                    ]
-                                ]
+                                "Fn::Join": [".", ["Mutation", "updatePlayer", "req", "vtl"]]
                             }
                         }
                     ]
@@ -715,15 +626,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "ResolverFileName": {
-                                "Fn::Join": [
-                                    ".",
-                                    [
-                                        "Mutation",
-                                        "updatePlayer",
-                                        "res",
-                                        "vtl"
-                                    ]
-                                ]
+                                "Fn::Join": [".", ["Mutation", "updatePlayer", "res", "vtl"]]
                             }
                         }
                     ]
@@ -737,10 +640,7 @@
                     "Ref": "GetAttGraphQLAPIApiId"
                 },
                 "DataSourceName": {
-                    "Fn::GetAtt": [
-                        "PlayerDataSource",
-                        "Name"
-                    ]
+                    "Fn::GetAtt": ["PlayerDataSource", "Name"]
                 },
                 "FieldName": "deletePlayer",
                 "TypeName": "Mutation",
@@ -755,15 +655,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "ResolverFileName": {
-                                "Fn::Join": [
-                                    ".",
-                                    [
-                                        "Mutation",
-                                        "deletePlayer",
-                                        "req",
-                                        "vtl"
-                                    ]
-                                ]
+                                "Fn::Join": [".", ["Mutation", "deletePlayer", "req", "vtl"]]
                             }
                         }
                     ]
@@ -779,15 +671,7 @@
                                 "Ref": "S3DeploymentRootKey"
                             },
                             "ResolverFileName": {
-                                "Fn::Join": [
-                                    ".",
-                                    [
-                                        "Mutation",
-                                        "deletePlayer",
-                                        "res",
-                                        "vtl"
-                                    ]
-                                ]
+                                "Fn::Join": [".", ["Mutation", "deletePlayer", "res", "vtl"]]
                             }
                         }
                     ]
@@ -799,10 +683,7 @@
         "GetAttPlayerTableStreamArn": {
             "Description": "Your DynamoDB table StreamArn.",
             "Value": {
-                "Fn::GetAtt": [
-                    "PlayerTable",
-                    "StreamArn"
-                ]
+                "Fn::GetAtt": ["PlayerTable", "StreamArn"]
             },
             "Export": {
                 "Name": {
@@ -823,10 +704,7 @@
         "GetAttPlayerDataSourceName": {
             "Description": "Your model DataSource name.",
             "Value": {
-                "Fn::GetAtt": [
-                    "PlayerDataSource",
-                    "Name"
-                ]
+                "Fn::GetAtt": ["PlayerDataSource", "Name"]
             },
             "Export": {
                 "Name": {
