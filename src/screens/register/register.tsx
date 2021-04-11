@@ -1,6 +1,7 @@
 import React, { ReactElement, useState } from "react";
 import { ScrollView, TextInput, Button, Alert, TouchableOpacity } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import Clipboard from "@react-native-community/clipboard";
 import { StackNavigatorParams } from "../../config/navigator";
 import { Text } from "../../components";
 import { Auth } from "aws-amplify";
