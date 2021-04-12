@@ -2,7 +2,7 @@ import React, { ReactElement, useEffect, useState } from "react";
 import { SafeAreaView, Alert, View } from "react-native";
 import styles from "./game.style";
 import { RouteProp } from "@react-navigation/native";
-import { StackNavigatorParams } from "../../config/navigator";
+import { StackNavigatorParams } from "../../navigation/navigator";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { Board, Button } from "../../components/";
 import { getGame, startgame, playmove, onUpdateGameById } from "../game/game.graphql";

@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from "react";
 import { View, TouchableOpacity, Alert } from "react-native";
 import styles from "./home.styles";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { StackNavigatorParams } from "../../config/navigator";
+import { StackNavigatorParams } from "../../navigation/navigator";
 import { Text, Button } from "../../components";
 import { useLogged } from "../../contexts/logged-context";
 import { Auth } from "aws-amplify";
