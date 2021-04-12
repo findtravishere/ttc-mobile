@@ -1,6 +1,6 @@
 import React, { ReactElement } from "react";
 import { LoadUp } from "./components";
-import Navigator from "./config/navigator";
+import Navigator from "./navigation/navigator";
 import Amplify from "aws-amplify";
 import awsExports from "../aws-exports";
 import { LoggedProvider } from "./contexts/logged-context";

@@ -19,7 +19,7 @@ import MatchesItem from "./matches-item";
 import Modal from "react-native-modal";
 import PlayersModal from "./players-modal/players-modal";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { StackNavigatorParams } from "../../config/navigator";
+import { StackNavigatorParams } from "../../navigation/navigator";
 
 type MatchesNavigationProp = StackNavigationProp<StackNavigatorParams, "Matches">;
 type MatchesProps = {

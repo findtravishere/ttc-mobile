@@ -8,12 +8,6 @@
         "skipLibCheck": true,
         "resolveJsonModule": true,
         "strict": true,
-        "baseUrl": ".",
-        "paths": {
-            "@screens": ["./src/screens"],
-            "@components": ["./src/components"],
-            "@config/*": ["./src/config/*"],
-            "@contexts/*": ["./src/contexts/*"]
-        }
+        "baseUrl": "."
     }
 }
