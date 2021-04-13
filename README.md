@@ -40,7 +40,7 @@ This was developed with a React Native/Expo frontend and the backend utilizes se
 
 ![QR CODE](./assets/qrcode.jpg)
 
-2. Install the published Android APK listed in [Section 4: Android APK](#4.-Android-APK)
+2. Install the published Android APK listed in [Section 4: Android APK](###4.-Android-APK)
 
 * Register for an account and submit the confirmation code you received in your email inbox
 
