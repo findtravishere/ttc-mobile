@@ -47,7 +47,7 @@ export default function Login({ navigation, route }: LoginProps): ReactElement {
                 returnKeyType="next"
                 onSubmitEditing={() => alert(true)}
                 placeholder="Username"
-                placeholderTextColor="white"
+                placeholderTextColor="grey"
                 style={{
                     height: 50,
                     width: "100%",
@@ -63,7 +63,7 @@ export default function Login({ navigation, route }: LoginProps): ReactElement {
                 onChangeText={value => setLoginInput("password", value)}
                 secureTextEntry
                 placeholder="Password"
-                placeholderTextColor="white"
+                placeholderTextColor="grey"
                 style={{
                     height: 50,
                     width: "100%",
