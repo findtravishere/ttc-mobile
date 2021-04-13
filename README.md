@@ -4,17 +4,17 @@
 
 ## Table of Contents
 
-\- [Background](#What-is-this-and-why-did-you-build-it?)
+\- [Background](###What-is-this-and-why-did-you-build-it?)
 
-\- [Section 1: How To Load And Play The Game](#1.-How-To-Load-And-Play-The-Game)
+\- [Section 1: How To Load And Play The Game](###1.-How-To-Load-And-Play-The-Game)
 
-\- [Section 2: Source Code](#2.-Source-Code)
+\- [Section 2: Source Code](###2.-Source-Code)
 
-\- [Section 3: PDF Documentation Regarding Assignment](#3.-PDF-Documentation-Regarding-Assignment)
+\- [Section 3: PDF Documentation Regarding Assignment](###3.-PDF-Documentation-Regarding-Assignment)
 
-\- [Section 4: Android APK](#4.-Android-APK)
+\- [Section 4: Android APK](###4.-Android-APK)
 
-\- [Section 5: Sample Screen Capture Video Walkthrough](#5.-Sample-Screen-Capture-Video-Walkthrough)
+\- [Section 5: Sample Screen Capture Video Walkthrough](###5.-Sample-Screen-Capture-Video-Walkthrough)
 
 ---
 
@@ -40,7 +40,7 @@ This was developed with a React Native/Expo frontend and the backend utilizes se
 
 ![QR CODE](./assets/qrcode.jpg)
 
-2. Install the published Android APK listed in [Section 4: Android APK](#4.-Android-APK)
+2. Install the published Android APK listed in [Section 4: Android APK](###4.-Android-APK)
 
 * Register for an account and submit the confirmation code you received in your email inbox
 
