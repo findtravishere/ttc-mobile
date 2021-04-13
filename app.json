@@ -18,7 +18,8 @@
         "android": {
             "adaptiveIcon": {
                 "backgroundColor": "#FFFFFF"
-            }
+            },
+            "package": "com.findtravishere.ttc"
         },
         "description": "serverless tic tac toe"
     }
