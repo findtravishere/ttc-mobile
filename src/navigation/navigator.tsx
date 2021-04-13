@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import { Home, Game, Login, Register, Matches } from "../screens";
+import { Home, Game, Login, Register, Matches } from "../scenes";
 
 export type StackNavigatorParams = {
     Home: undefined;
