@@ -8,13 +8,9 @@
 
 \- [Section 1: How To Load And Play The Game](###1.-How-To-Load-And-Play-The-Game)
 
-\- [Section 2: Source Code](###2.-Source-Code)
+\- [Section 2: Android APK](###4.-Android-APK)
 
-\- [Section 3: PDF Documentation Regarding Assignment](###3.-PDF-Documentation-Regarding-Assignment)
-
-\- [Section 4: Android APK](###4.-Android-APK)
-
-\- [Section 5: Sample Screen Capture Video Walkthrough](###5.-Sample-Screen-Capture-Video-Walkthrough)
+\- [Section 3: Sample Screen Capture Video Walkthrough](###5.-Sample-Screen-Capture-Video-Walkthrough)
 
 ---
 
@@ -52,19 +48,11 @@ This was developed with a React Native/Expo frontend and the backend utilizes se
 
 * Enjoy the game and challenge the same user to a new game after it has ended if you wish to continue
 
-## 2. Source Code
-
-* [Zip file of source code (Redirects to Google Drive)](https://drive.google.com/file/d/1zYIXCZyeJpRgPekLQsvzRXV8091BSZm4/view?usp=sharing)
-
-## 3. PDF Documentation Regarding Assignment
-
-* [Documentation (PDF Format)](./assets/documentation.pdf)
-
-## 4. Android APK
+## 2. Android APK
 
 * [Android application bundle (APK) file (Redirects to Google Drive)](https://drive.google.com/file/d/1InKJklTQsUM30c63rcc0QigQ12ulHd23/view?usp=sharing)
 
-## 5. Sample Screen Capture Video Walkthrough
+## 3. Sample Screen Capture Video Walkthrough
 
 1. [Android and iOS Simulator on PC gameplay walkthrough <br>(Redirects to Google Drive, .mov format)](https://drive.google.com/file/d/1kyzgvP8fZd9ge07aQjomm5NnE9HO7zHk/view?usp=sharing)
 
